@@ -26,6 +26,36 @@
 input::placeholder {
   font-style: italic;
 }
+.project-record {
+  position: relative;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+.project-record:hover {
+  background-color: #f0f8ff;
+}
+
+.project-record::after {
+  content: "Click to view tasks";
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  transform: translateY(-50%);
+  background: rgba(0, 123, 255, 0.9);
+  color: #fff;
+  font-size: 0.75rem;
+  padding: 4px 8px;
+  border-radius: 4px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease-in-out;
+  white-space: nowrap;
+}
+
+.project-record:hover::after {
+  opacity: 1;
+}
 
 @keyframes fadeInOut {
   0% {

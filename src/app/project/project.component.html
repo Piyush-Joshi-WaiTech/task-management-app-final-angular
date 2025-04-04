@@ -50,9 +50,12 @@
 
     <div class="col-12" *ngFor="let project of projects; let i = index">
       <div
-        class="card mb-3 shadow-sm"
+        class="card mb-3 shadow-sm project-record"
         (click)="goToTasks(project)"
         style="cursor: pointer"
+        data-bs-toggle="tooltip"
+        data-bs-placement="top"
+        title="📋 Click to view tasks for this project"
       >
         <div class="card-body">
           <div class="row align-items-center">
