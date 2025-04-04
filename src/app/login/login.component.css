@@ -1,0 +1,74 @@
+.login-container {
+  width: 350px;
+  margin: 100px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  background-color: #ffffff;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out;
+}
+
+h2 {
+  margin-bottom: 20px;
+  font-size: 22px;
+  font-weight: bold;
+  color: #333;
+}
+
+.profile-picture {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 15px;
+}
+
+.profile-picture i {
+  font-size: 110px;
+  color: #007bff;
+}
+
+.form-control {
+  width: 90%;
+  margin: 10px auto;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+.btn-primary {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background 0.3s ease-in-out;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+input.form-control {
+  margin-bottom: 10px;
+}
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+p {
+  text-align: center;
+  margin-top: 15px;
+}
+
+p a {
+  color: #007bff;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+p a:hover {
+  text-decoration: underline;
+}

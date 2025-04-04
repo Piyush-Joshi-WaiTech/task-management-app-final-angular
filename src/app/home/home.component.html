@@ -1,0 +1,292 @@
+<app-navbar></app-navbar>
+
+<div class="home-container">
+  <h2>
+    Welcome <span style="color: red">{{ username }}</span> To Your Dashboard
+  </h2>
+
+  <!-- Dark Mode Toggle -->
+  <!-- <button class="btn btn-dark mode-toggle" (click)="toggleDarkMode()">
+    <h2></h2>
+    <i
+      [ngClass]="
+        isDarkMode ? 'bi bi-moon-stars-fill' : 'bi bi-brightness-high-fill'
+      "
+    ></i>
+    {{ isDarkMode ? "Light Mode" : "Dark Mode" }}
+  </button> -->
+
+  <div class="home-header">
+    <button class="btn btn-dark mode-toggle" (click)="toggleDarkMode()">
+      <i
+        [ngClass]="
+          isDarkMode ? 'bi bi-moon-stars-fill' : 'bi bi-brightness-high-fill'
+        "
+      ></i>
+      {{ isDarkMode ? "Light Mode" : "Dark Mode" }}
+    </button>
+  </div>
+
+  <!-- Project and Task Creation Section -->
+  <div class="create-section">
+    <h3>Create Your New Project</h3>
+    <form (ngSubmit)="createProject()">
+      <div class="form-group">
+        <label for="projectTitle">Project Title</label>
+        <input
+          type="text"
+          id="projectTitle"
+          [(ngModel)]="project.title"
+          name="title"
+          class="form-control"
+          placeholder="Enter project title"
+          [ngClass]="{ 'is-invalid': showError && !project.title }"
+          required
+        />
+        <div *ngIf="showError && !project.title" class="invalid-feedback">
+          Project title is required.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="projectDescription">Description</label>
+        <textarea
+          id="projectDescription"
+          [(ngModel)]="project.description"
+          name="description"
+          class="form-control"
+          placeholder="Enter project description"
+          (input)="validateProjectForm()"
+          [ngClass]="{ 'is-invalid': showError && !project.description }"
+          required
+        ></textarea>
+        <div *ngIf="showError && !project.description" class="invalid-feedback">
+          Project description is required.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="createdBy">Created By</label>
+        <input
+          type="text"
+          id="createdBy"
+          [(ngModel)]="project.createdBy"
+          name="manager"
+          class="form-control"
+          placeholder="Enter Created By Name"
+          (input)="validateProjectForm()"
+          [ngClass]="{ 'is-invalid': showError && !project.createdBy }"
+          required
+        />
+        <div *ngIf="showError && !project.description" class="invalid-feedback">
+          Project Created By is required.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="projectManager">Project Manager</label>
+        <input
+          type="text"
+          id="projectManager"
+          [(ngModel)]="project.manager"
+          name="manager"
+          class="form-control"
+          placeholder="Enter project manager name"
+          (input)="validateProjectForm()"
+          [ngClass]="{ 'is-invalid': showError && !project.manager }"
+          required
+        />
+        <div *ngIf="showError && !project.manager" class="invalid-feedback">
+          Project manager is required.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="startDate">Start Date</label>
+        <input
+          type="date"
+          id="startDate"
+          [(ngModel)]="project.startDate"
+          name="startDate"
+          class="form-control"
+          (input)="validateProjectForm()"
+          [ngClass]="{ 'is-invalid': showError && !project.startDate }"
+          required
+        />
+        <div *ngIf="showError && !project.startDate" class="invalid-feedback">
+          Start date is required.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="endDate">End Date</label>
+        <input
+          type="date"
+          id="endDate"
+          [(ngModel)]="project.endDate"
+          name="endDate"
+          class="form-control"
+          (input)="validateProjectForm()"
+          [ngClass]="{ 'is-invalid': showError && !project.endDate }"
+          required
+        />
+        <div *ngIf="showError && !project.endDate" class="invalid-feedback">
+          End date is required.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="teamMember">Team Members</label>
+        <input
+          type="number"
+          id="teamMember"
+          [(ngModel)]="project.teamMember"
+          name="teamMember"
+          class="form-control"
+          (input)="validateProjectForm()"
+          [ngClass]="{ 'is-invalid': showError && !project.teamMember }"
+          placeholder="Enter Team Member"
+          required
+        />
+        <div *ngIf="showError && !project.teamMember" class="invalid-feedback">
+          Team Member is required.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="dueDate">Due Date</label>
+        <input
+          type="date"
+          id="dueDate"
+          [(ngModel)]="project.dueDate"
+          name="dueDate"
+          class="form-control"
+          (input)="validateProjectForm()"
+          [ngClass]="{ 'is-invalid': showError && !project.dueDate }"
+          required
+        />
+        <div *ngIf="showError && !project.dueDate" class="invalid-feedback">
+          Due date is required.
+        </div>
+      </div>
+      <button class="btn btn-primary" type="submit">Create Project</button>
+    </form>
+  </div>
+
+  <!-- Task Management Section -->
+  <div class="task-section">
+    <!-- <h3>Tasks</h3>
+    <button class="btn btn-secondary" (click)="toggleTaskCreation()">
+      Create Task
+    </button> -->
+
+    <!-- Task Creation Form -->
+
+    <!-- <div *ngIf="isTaskCreationVisible" class="task-form">
+      <h4>Create New Task</h4>
+      <form (ngSubmit)="createTask()">
+        <div class="form-group">
+          <label for="taskTitle">Task Title</label>
+          <input
+            type="text"
+            id="taskTitle"
+            [(ngModel)]="task.title"
+            name="taskTitle"
+            class="form-control"
+            placeholder="Enter task title"
+            (input)="validateTaskForm()"
+            [ngClass]="{ 'is-invalid': showTaskError && !task.title }"
+            required
+          />
+          <div *ngIf="showTaskError && !task.title" class="invalid-feedback">
+            Task title is required.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="assignedTo">Assigned To</label>
+          <input
+            type="text"
+            id="assignedTo"
+            [(ngModel)]="task.assignedTo"
+            name="assignedTo"
+            class="form-control"
+            placeholder="Enter assignee"
+            (input)="validateTaskForm()"
+            [ngClass]="{ 'is-invalid': showTaskError && !task.assignedTo }"
+            required
+          />
+          <div
+            *ngIf="showTaskError && !task.assignedTo"
+            class="invalid-feedback"
+          >
+            Assignee is required.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="taskStatus">Status</label>
+          <select
+            id="taskStatus"
+            [(ngModel)]="task.status"
+            name="status"
+            class="form-control"
+            (change)="validateTaskForm()"
+            [ngClass]="{ 'is-invalid': showTaskError && !task.status }"
+            required
+          >
+            <option value="">Select status</option>
+            <option value="Pending">Pending</option>
+            <option value="In Progress">In Progress</option>
+            <option value="Completed">Completed</option>
+          </select>
+          <div *ngIf="showTaskError && !task.status" class="invalid-feedback">
+            Task status is required.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="estimatedTime">Estimated Time</label>
+          <input
+            type="number"
+            id="estimatedTime"
+            [(ngModel)]="task.estimatedTime"
+            name="estimatedTime"
+            class="form-control"
+            placeholder="Enter estimated time"
+            (input)="validateTaskForm()"
+            [ngClass]="{ 'is-invalid': showTaskError && !task.estimatedTime }"
+            required
+          />
+          <div
+            *ngIf="showTaskError && !task.estimatedTime"
+            class="invalid-feedback"
+          >
+            Estimated time is required.
+          </div>
+        </div>
+
+        <button class="btn btn-success" type="submit">Create Task</button>
+      </form>
+    </div> -->
+
+    <!-- Task List -->
+    <div class="task-list">
+      <ul>
+        <li
+          *ngFor="let t of tasks"
+          [ngClass]="{
+            pending: t.status === 'Pending',
+            'in-progress': t.status === 'In Progress',
+            completed: t.status === 'Completed'
+          }"
+        >
+          <h5>{{ t.title }}</h5>
+          <p>Assigned to: {{ t.assignedTo }}</p>
+          <p>Status: {{ t.status }}</p>
+          <p>Estimated Time: {{ t.estimatedTime }} hours</p>
+          <button (click)="editTask(t)">Edit</button>
+          <button (click)="deleteTask(t)">Delete</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

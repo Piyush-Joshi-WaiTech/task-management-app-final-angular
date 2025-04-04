@@ -1,0 +1,79 @@
+<app-navbar></app-navbar>
+
+<div class="container mt-4">
+  <h2>Edit Your Task</h2>
+  <form (submit)="updateTask()">
+    <div class="mb-3">
+      <label class="form-label">Task Title:</label>
+      <input
+        type="text"
+        class="form-control"
+        [(ngModel)]="task.title"
+        name="title"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Assigned To:</label>
+      <input
+        type="text"
+        class="form-control"
+        [(ngModel)]="task.assignedTo"
+        name="assignedTo"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Priority:</label>
+      <select
+        class="form-select"
+        [(ngModel)]="task.priority"
+        name="priority"
+        required
+      >
+        <option value="High">High</option>
+        <option value="Medium">Medium</option>
+        <option value="Low">Low</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Status:</label>
+      <select
+        class="form-select"
+        [(ngModel)]="task.status"
+        name="status"
+        required
+      >
+        <option value="Pending">Pending</option>
+        <option value="In Progress">In Progress</option>
+        <option value="Completed">Completed</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Estimated Time (hrs):</label>
+      <input
+        type="number"
+        class="form-control"
+        [(ngModel)]="task.estimate"
+        name="estimate"
+        min="0"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Time Spent (hrs):</label>
+      <input
+        type="number"
+        class="form-control"
+        [(ngModel)]="task.timeSpent"
+        name="timeSpent"
+        min="0"
+        required
+      />
+    </div>
+    <button type="submit" class="btn btn-success">Update Task</button>
+    <button type="button" class="btn btn-secondary ms-2" (click)="cancelEdit()">
+      Cancel
+    </button>
+  </form>
+</div>

@@ -1,0 +1,210 @@
+<app-navbar></app-navbar>
+
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Tasks for Project: {{ projectTitle }}</h2>
+    <button class="btn btn-primary" (click)="showTaskForm = true">
+      ➕ Create Task
+    </button>
+  </div>
+
+  <!-- Notification -->
+  <div
+    *ngIf="notification"
+    class="alert alert-dismissible fade show"
+    [ngClass]="
+      notificationType === 'success' ? 'alert-success' : 'alert-danger'
+    "
+    role="alert"
+  >
+    {{ notification }}
+    <button
+      type="button"
+      class="btn-close"
+      (click)="notification = null"
+    ></button>
+  </div>
+
+  <!-- Task Creation Form (Modal) -->
+  <div *ngIf="showTaskForm" class="card p-3 mb-4">
+    <h5>Create a New Task</h5>
+
+    <div class="mb-3">
+      <label class="form-label">Title</label>
+      <input type="text" class="form-control" [(ngModel)]="task.title" />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Assigned To</label>
+      <input type="text" class="form-control" [(ngModel)]="task.assignedTo" />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Status</label>
+      <select class="form-select" [(ngModel)]="task.status">
+        <option value="High">High</option>
+        <option value="Medium">Medium</option>
+        <option value="Low">Low</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Estimate (hrs)</label>
+      <input type="number" class="form-control" [(ngModel)]="task.estimate" />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Time Spent (hrs)</label>
+      <input type="number" class="form-control" [(ngModel)]="task.timeSpent" />
+    </div>
+
+    <button class="btn btn-success me-2" (click)="createTask()">
+      ✔️ Save Task
+    </button>
+    <button class="btn btn-secondary" (click)="showTaskForm = false">
+      ❌ Cancel
+    </button>
+  </div>
+
+  <!-- Task List -->
+  <div class="row">
+    <div class="col-12" *ngIf="tasks.length === 0">
+      <p class="text-muted">No tasks yet. Click "Create Task" to add one.</p>
+    </div>
+
+    <div class="col-12" *ngFor="let task of tasks; index as i">
+      <div class="card mb-3 shadow-sm">
+        <div class="card-body">
+          <div class="row align-items-center">
+            <div class="col-12 col-sm-2 text-center text-sm-start mb-2 mb-sm-0">
+              <img
+                src="https://app.intimepro.io/assets/common/images/projects/default%20image%20for%20project%20-1.png"
+                alt="Task Icon"
+                class="img-fluid rounded task-image"
+              />
+            </div>
+
+            <div class="col-12 col-sm-10">
+              <div class="row align-items-center">
+                <div class="col-12 col-md px-2 text-center text-md-start">
+                  <h5 class="fw-bold text-primary mb-1">{{ task.title }}</h5>
+                  <p class="text-muted mb-0">Project: {{ projectTitle }}</p>
+                </div>
+
+                <div class="col-6 col-md px-2 text-center text-md-start">
+                  <p class="mb-0">
+                    <strong>Assigned To:</strong> {{ task.assignedTo }}
+                  </p>
+                </div>
+
+                <div class="col-6 col-md px-2 text-center text-md-start">
+                  <p class="mb-0">
+                    <strong>Status:</strong>
+                    <span [ngClass]="getStatusClass(task.status)">
+                      {{ task.status }}
+                    </span>
+                  </p>
+                </div>
+
+                <div class="col-6 col-md px-2 text-center text-md-start">
+                  <p class="mb-0">
+                    <strong>Estimate:</strong> {{ task.estimate }} hrs
+                  </p>
+                </div>
+
+                <div class="col-6 col-md px-2 text-center text-md-start">
+                  <p class="mb-0">
+                    <strong>Time Spent:</strong> {{ task.timeSpent }} hrs
+                  </p>
+                </div>
+                <div class="col-12 col-md-auto text-center mt-2 mt-md-0">
+                  <button
+                    class="btn btn-primary me-2"
+                    (click)="openEditModal(i)"
+                  >
+                    ✏️ Edit
+                  </button>
+
+                  <button class="btn btn-danger" (click)="deleteTask(i)">
+                    🗑 Delete
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Edit Task Modal -->
+  <div class="modal-backdrop" *ngIf="editMode"></div>
+
+  <div class="modal d-block" *ngIf="editMode">
+    <div class="modal-dialog">
+      <div class="modal-content p-3">
+        <div class="modal-header">
+          <h5 class="modal-title">Edit Task</h5>
+          <button
+            type="button"
+            class="btn-close"
+            (click)="closeEditModal()"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label">Title</label>
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="editTask.title"
+            />
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Assigned To</label>
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="editTask.assignedTo"
+            />
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Status</label>
+            <select class="form-select" [(ngModel)]="editTask.status">
+              <option value="High">High</option>
+              <option value="Medium">Medium</option>
+              <option value="Low">Low</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Estimate (hrs)</label>
+            <input
+              type="number"
+              class="form-control"
+              [(ngModel)]="editTask.estimate"
+            />
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Time Spent (hrs)</label>
+            <input
+              type="number"
+              class="form-control"
+              [(ngModel)]="editTask.timeSpent"
+            />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-success" (click)="updateTask()">
+            ✔️ Update
+          </button>
+          <button class="btn btn-secondary" (click)="closeEditModal()">
+            ❌ Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

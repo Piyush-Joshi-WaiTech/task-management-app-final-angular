@@ -1,0 +1,74 @@
+<nav
+  class="navbar navbar-expand-lg navbar-dark"
+  style="background: linear-gradient(90deg, #1a1a1a, #333); padding: 12px"
+>
+  <div class="container-fluid">
+    <a class="navbar-brand d-flex align-items-center" href="#">
+      <img
+        src="https://media.licdn.com/dms/image/v2/D4D0BAQEilVRZkCFEeQ/company-logo_200_200/company-logo_200_200/0/1712297863495/waitechnologies_logo?e=2147483647&v=beta&t=tnLUritgtLC-SxEtjc6cRJ_DFK8qLD59o81v4y43DpM"
+        alt="Logo"
+        width="40"
+        height="40"
+        class="d-inline-block rounded-circle"
+      />
+      <span class="mt-1 ms-2">Task Manager App</span>
+    </a>
+
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            [routerLink]="['/projects']"
+            [ngClass]="{ active: isActive('/projects') }"
+          >
+            Projects
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">About</a>
+        </li>
+      </ul>
+
+      <div class="nav-item dropdown ms-3">
+        <a
+          class="nav-link dropdown-toggle"
+          href="#"
+          role="button"
+          data-bs-toggle="dropdown"
+        >
+          <i
+            class="bi bi-person-circle"
+            style="font-size: 1.5rem; color: white"
+          ></i>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end">
+          <li><a class="dropdown-item" href="#">Profile</a></li>
+          <li><a class="dropdown-item" href="#">Settings</a></li>
+          <li><hr class="dropdown-divider" /></li>
+          <li>
+            <button
+              class="dropdown-item text-danger"
+              type="button"
+              (click)="logout()"
+            >
+              Logout
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>

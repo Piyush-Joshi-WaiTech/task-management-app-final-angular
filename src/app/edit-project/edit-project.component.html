@@ -1,0 +1,84 @@
+<app-navbar></app-navbar>
+
+<div class="container mt-4">
+  <h2>Edit Your Project</h2>
+  <form (submit)="updateProject()">
+    <div class="mb-3">
+      <label class="form-label">Title:</label>
+      <input
+        type="text"
+        class="form-control"
+        [(ngModel)]="project.title"
+        name="title"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Description:</label>
+      <textarea
+        class="form-control"
+        [(ngModel)]="project.description"
+        name="description"
+        required
+      ></textarea>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Created By:</label>
+      <input
+        type="text"
+        class="form-control"
+        [(ngModel)]="project.createdBy"
+        name="createdBy"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Project Manager:</label>
+      <input
+        type="text"
+        class="form-control"
+        [(ngModel)]="project.manager"
+        name="manager"
+      />
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Start Date:</label>
+      <input
+        type="date"
+        class="form-control"
+        [(ngModel)]="project.startDate"
+        name="startDate"
+      />
+    </div>
+    <div class="mb-3">
+      <label class="form-label">End Date:</label>
+      <input
+        type="date"
+        class="form-control"
+        [(ngModel)]="project.endDate"
+        name="endDate"
+      />
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Due Date:</label>
+      <input
+        type="date"
+        class="form-control"
+        [(ngModel)]="project.dueDate"
+        name="dueDate"
+      />
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Team Members:</label>
+      <input
+        type="number"
+        class="form-control"
+        [(ngModel)]="project.teamMember"
+        name="teamMember"
+        min="1"
+      />
+    </div>
+    <button type="submit" class="btn btn-success">Update Project</button>
+    <button class="btn btn-secondary" (click)="cancelEdit()">❌ Cancel</button>
+  </form>
+</div>

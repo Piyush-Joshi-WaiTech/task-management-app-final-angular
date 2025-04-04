@@ -1,0 +1,97 @@
+<div class="login-container">
+  <h2>Task Management System</h2>
+
+  <div class="profile-picture">
+    <i class="fas fa-user-circle"></i>
+  </div>
+
+  <div *ngIf="!isSignUp">
+    <!-- Login Form -->
+    <div class="form-group">
+      <label for="email">Enter Email or Username: </label>
+      <input
+        type="email"
+        class="form-control"
+        [(ngModel)]="email"
+        placeholder="Enter Email"
+        (input)="validateInput()"
+        [ngClass]="{ 'is-invalid': showError && !email }"
+        id="email"
+      />
+      <div *ngIf="showError && !email" class="invalid-feedback">
+        Please enter a valid email.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Enter Password: </label>
+      <input
+        type="password"
+        class="form-control"
+        [(ngModel)]="password"
+        placeholder="Enter Password"
+        (input)="validateInput()"
+        [ngClass]="{ 'is-invalid': showError && !password }"
+        id="password"
+      />
+      <div *ngIf="showError && !password" class="invalid-feedback">
+        Please enter your password.
+      </div>
+    </div>
+
+    <button class="btn btn-primary" (click)="login()">Login</button>
+
+    <div *ngIf="showError" class="error-message text-danger mt-2">
+      Invalid email or password. Please try again.
+    </div>
+
+    <!-- Sign Up Link -->
+    <p>
+      Don't have an account?
+      <a href="javascript:void(0);" (click)="toggleSignUp()">Sign Up</a>
+    </p>
+  </div>
+
+  <div *ngIf="isSignUp">
+    <!-- Sign Up Form -->
+    <div class="form-group">
+      <label for="signUpEmail">Email</label>
+      <input
+        type="email"
+        class="form-control"
+        [(ngModel)]="signUpEmail"
+        placeholder="Enter Email"
+        (input)="validateInput()"
+        [ngClass]="{ 'is-invalid': showError && !signUpEmail }"
+        id="signUpEmail"
+      />
+      <div *ngIf="showError && !signUpEmail" class="invalid-feedback">
+        Please enter a valid email.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="signUpPassword">Password</label>
+      <input
+        type="password"
+        class="form-control"
+        [(ngModel)]="signUpPassword"
+        placeholder="Enter Password"
+        (input)="validateInput()"
+        [ngClass]="{ 'is-invalid': showError && !signUpPassword }"
+        id="signUpPassword"
+      />
+      <div *ngIf="showError && !signUpPassword" class="invalid-feedback">
+        Please enter a password.
+      </div>
+    </div>
+
+    <button class="btn btn-success" (click)="signUp()">Sign Up</button>
+
+    <!-- Back to Login Link -->
+    <p>
+      Already have an account?
+      <a href="javascript:void(0);" (click)="toggleSignUp()">Back to Login</a>
+    </p>
+  </div>
+</div>

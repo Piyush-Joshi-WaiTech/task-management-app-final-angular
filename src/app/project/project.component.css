@@ -1,0 +1,43 @@
+.notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 15px;
+  border-radius: 5px;
+  font-weight: bold;
+  animation: fadeInOut 3s ease-in-out;
+}
+
+.success {
+  background-color: #4caf50;
+  color: white;
+}
+
+.error {
+  background-color: #f44336;
+  color: white;
+}
+.card:hover {
+  background-color: #f0f8ff;
+  transform: scale(1.01);
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 0 15px rgba(0, 123, 255, 0.3);
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  10% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
