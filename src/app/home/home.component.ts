@@ -14,7 +14,7 @@ import { ProjectService } from '../services/project.service';
 })
 export class HomeComponent {
   username: string | null = '';
-  isDarkMode: boolean = false;
+  isDarkMode = false;
 
   notification: string | null = null;
   project = {
@@ -55,7 +55,12 @@ export class HomeComponent {
 
   toggleDarkMode() {
     this.isDarkMode = !this.isDarkMode;
-    document.body.classList.toggle('dark-mode', this.isDarkMode);
+
+    if (this.isDarkMode) {
+      document.body.classList.add('dark-mode');
+    } else {
+      document.body.classList.remove('dark-mode');
+    }
   }
 
   createProject() {
