@@ -23,6 +23,9 @@
   transition: all 0.2s ease-in-out;
   box-shadow: 0 0 15px rgba(0, 123, 255, 0.3);
 }
+input::placeholder {
+  font-style: italic;
+}
 
 @keyframes fadeInOut {
   0% {

@@ -1,4 +1,81 @@
 <app-navbar></app-navbar>
+<!-- Features Toolbar Panel -->
+<div class="features-toolbar shadow-sm mb-3 p-3 bg-white rounded">
+  <div class="d-flex justify-content-between align-items-center flex-wrap">
+    <h5 class="mb-2 mb-md-0 fw-bold text-primary">
+      Additional Features & Enhancements
+    </h5>
+
+    <div class="dropdown">
+      <button
+        class="btn btn-outline-primary dropdown-toggle"
+        type="button"
+        id="taskOptionsDropdown"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        ⚙️ Task Options
+      </button>
+      <ul
+        class="dropdown-menu dropdown-menu-end"
+        aria-labelledby="taskOptionsDropdown"
+      >
+        <li class="dropdown-item text-dark fw-semibold">Filter by:</li>
+        <li>
+          <div class="px-3 py-2">
+            <label class="form-label">Status</label>
+            <select
+              class="form-select form-select-sm"
+              [(ngModel)]="selectedStatusFilter"
+              (change)="filterTasksByStatus()"
+            >
+              <option value="">All</option>
+              <option value="High">High</option>
+              <option value="Medium">Medium</option>
+              <option value="Low">Low</option>
+            </select>
+          </div>
+        </li>
+
+        <li></li>
+        <li>
+          <div class="px-3 py-2">
+            <label class="form-label">Sort by</label>
+            <select
+              class="form-select form-select-sm"
+              [(ngModel)]="sortOption"
+              (change)="sortTasks()"
+            >
+              <option disabled selected>Select Sorting</option>
+              <option value="dueDate">Due Date</option>
+              <option value="priority">Priority</option>
+            </select>
+          </div>
+        </li>
+
+        <li>
+          <div class="px-3 py-2">
+            <label class="form-label">Assigned To</label>
+            <input
+              type="text"
+              class="form-control form-control-sm"
+              placeholder="Enter user email or name"
+              [(ngModel)]="assignedToFilter"
+              (ngModelChange)="applyFilters()"
+            />
+          </div>
+        </li>
+
+        <li>
+          <hr class="dropdown-divider" />
+        </li>
+        <li class="px-3 pb-2">
+          <button class="btn btn-sm btn-success w-100">🔍 Apply Filters</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
 
 <div class="container mt-4">
   <div class="d-flex justify-content-between align-items-center mb-4">

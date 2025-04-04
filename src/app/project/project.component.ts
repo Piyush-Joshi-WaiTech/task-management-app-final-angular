@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { ProjectService } from '../services/project.service';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-project',
@@ -17,6 +18,7 @@ export class ProjectComponent implements OnInit {
   editingIndex: number | null = null;
   notification: string | null = null;
   notificationType: 'success' | 'error' | null = null;
+  searchQuery: string = '';
 
   project = {
     title: '',
@@ -164,5 +166,24 @@ export class ProjectComponent implements OnInit {
         modalBackdrop.remove();
       }
     }
+  }
+  filterProjects() {
+    const allProjects = this.projectService.getProjects();
+    const query = this.searchQuery.toLowerCase();
+
+    this.projects = allProjects.filter((project) => {
+      const titleMatch = project.title.toLowerCase().includes(query);
+      const descMatch = project.description.toLowerCase().includes(query);
+
+      // Check task titles too
+      const storedTasks = localStorage.getItem(`tasks_${project.title}`);
+      const tasks = storedTasks ? JSON.parse(storedTasks) : [];
+
+      const taskMatch = tasks.some((task: any) =>
+        task.title?.toLowerCase().includes(query)
+      );
+
+      return titleMatch || descMatch || taskMatch;
+    });
   }
 }

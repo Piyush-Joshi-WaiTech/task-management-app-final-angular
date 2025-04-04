@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { NavbarComponent } from '../navbar/navbar.component';
+declare var bootstrap: any;
 
 @Component({
   selector: 'app-task',
@@ -16,6 +17,9 @@ export class TaskComponent implements OnInit {
   projectTitle: string = '';
   projectId: string = '';
   tasks: any[] = [];
+  sortOption: string = '';
+  selectedStatusFilter: string = '';
+  assignedToFilter: string = '';
 
   task = {
     title: '',
@@ -44,9 +48,12 @@ export class TaskComponent implements OnInit {
     this.loadTasks();
   }
 
+  allTasks: any[] = []; // Store unfiltered full task list
+
   loadTasks() {
     const storedTasks = localStorage.getItem(`tasks_${this.projectTitle}`);
-    this.tasks = storedTasks ? JSON.parse(storedTasks) : [];
+    this.allTasks = storedTasks ? JSON.parse(storedTasks) : [];
+    this.tasks = [...this.allTasks]; // Displayed tasks
   }
 
   createTask() {
@@ -55,12 +62,15 @@ export class TaskComponent implements OnInit {
       return;
     }
 
-    this.tasks.push({ ...this.task });
+    const newTask = { ...this.task };
+    this.tasks.push(newTask);
+    this.allTasks.push(newTask); // ✅ Keep allTasks in sync
 
     localStorage.setItem(
       `tasks_${this.projectTitle}`,
       JSON.stringify(this.tasks)
     );
+    // <-- Add this after task creation/deletion
 
     this.showNotification('✅ Task created successfully!', 'success');
 
@@ -88,7 +98,19 @@ export class TaskComponent implements OnInit {
     const confirmed = confirm('Are you sure you want to delete this task?');
     if (!confirmed) return;
 
+    const taskToDelete = this.tasks[index];
     this.tasks.splice(index, 1);
+
+    // ✅ Also remove from allTasks
+    const originalIndex = this.allTasks.findIndex(
+      (t) =>
+        t.title === taskToDelete.title &&
+        t.assignedTo === taskToDelete.assignedTo
+    );
+    if (originalIndex > -1) {
+      this.allTasks.splice(originalIndex, 1);
+    }
+
     localStorage.setItem(
       `tasks_${this.projectTitle}`,
       JSON.stringify(this.tasks)
@@ -115,17 +137,94 @@ export class TaskComponent implements OnInit {
     this.editMode = false;
     this.editTask = {};
     this.editIndex = -1;
+
+    // ✅ Hide Bootstrap modal manually
+    const modalElement = document.getElementById('editTaskModal');
+    if (modalElement) {
+      const modalInstance = bootstrap.Modal.getInstance(modalElement);
+      if (modalInstance) {
+        modalInstance.hide();
+      }
+    }
   }
 
   updateTask() {
     if (this.editIndex > -1) {
-      this.tasks[this.editIndex] = { ...this.editTask };
+      const updatedTask = { ...this.editTask };
+
+      // ✅ Update task in displayed list
+      this.tasks[this.editIndex] = updatedTask;
+
+      // ✅ Also update task in allTasks by matching index (fallback to editIndex if no exact match)
+      const allIndex = this.allTasks.findIndex(
+        (task, i) => i === this.editIndex
+      );
+      if (allIndex !== -1) {
+        this.allTasks[allIndex] = updatedTask;
+      }
+
+      // ✅ Save to localStorage
       localStorage.setItem(
         `tasks_${this.projectTitle}`,
-        JSON.stringify(this.tasks)
+        JSON.stringify(this.allTasks)
       );
+
       this.showNotification('✅ Task updated successfully!', 'success');
+
+      // ✅ Re-apply filters (not filterTasksByStatus to avoid recursion bug)
+      this.applyFilters();
+
+      // ✅ Close modal manually
+      const modalElement = document.getElementById('editTaskModal');
+      if (modalElement) {
+        const modalInstance = bootstrap.Modal.getInstance(modalElement);
+        if (modalInstance) {
+          modalInstance.hide();
+        }
+      }
+
+      // ✅ Reset modal state
+      this.closeEditModal();
     }
-    this.closeEditModal();
+  }
+
+  sortTasks() {
+    if (this.sortOption === 'priority') {
+      const priorityOrder: any = { High: 1, Medium: 2, Low: 3 };
+      this.tasks.sort(
+        (a, b) => priorityOrder[a.status] - priorityOrder[b.status]
+      );
+    } else if (this.sortOption === 'dueDate') {
+      this.tasks.sort((a, b) => {
+        const aDate = new Date(a.dueDate || '2100-01-01').getTime();
+        const bDate = new Date(b.dueDate || '2100-01-01').getTime();
+        return aDate - bDate;
+      });
+    }
+  }
+
+  filterTasksByStatus() {
+    if (this.selectedStatusFilter) {
+      this.tasks = this.allTasks.filter(
+        (task) => task.status === this.selectedStatusFilter
+      );
+    } else {
+      this.tasks = [...this.allTasks]; // Reset if no filter selected
+    }
+    this.filterTasksByStatus();
+  }
+  applyFilters() {
+    this.tasks = this.allTasks.filter((task) => {
+      const matchesStatus =
+        !this.selectedStatusFilter || task.status === this.selectedStatusFilter;
+
+      const matchesAssignedTo =
+        !this.assignedToFilter ||
+        task.assignedTo
+          .toLowerCase()
+          .includes(this.assignedToFilter.toLowerCase());
+
+      return matchesStatus && matchesAssignedTo;
+    });
   }
 }
