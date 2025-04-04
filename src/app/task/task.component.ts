@@ -12,7 +12,6 @@ import { NavbarComponent } from '../navbar/navbar.component';
   templateUrl: './task.component.html',
   styleUrls: ['./task.component.css'],
 })
-// Keep your existing imports...
 export class TaskComponent implements OnInit {
   projectTitle: string = '';
   projectId: string = '';
@@ -30,7 +29,6 @@ export class TaskComponent implements OnInit {
   notification: string | null = null;
   notificationType: 'success' | 'error' | null = null;
 
-  // Add this to not interfere with Edit modal logic
   editMode: boolean = false;
   editTask: any = {};
   editIndex: number = -1;
@@ -107,7 +105,6 @@ export class TaskComponent implements OnInit {
     };
   }
 
-  // Your existing edit modal logic here (unchanged)
   openEditModal(index: number) {
     this.editIndex = index;
     this.editTask = { ...this.tasks[index] };

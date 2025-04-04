@@ -70,7 +70,6 @@ export class HomeComponent {
 
     this.notification = '✅ Project created successfully!';
 
-    // Reset form
     this.project = {
       title: '',
       description: '',

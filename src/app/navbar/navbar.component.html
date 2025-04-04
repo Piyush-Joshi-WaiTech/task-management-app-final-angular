@@ -37,37 +37,45 @@
             Projects
           </a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item me-2">
           <a class="nav-link" href="#">About</a>
         </li>
       </ul>
 
-      <div class="nav-item dropdown ms-3">
-        <a
-          class="nav-link dropdown-toggle"
-          href="#"
-          role="button"
-          data-bs-toggle="dropdown"
-        >
+      <div
+        class="user-box-container mt-1"
+        (mouseenter)="onHoverEnter()"
+        (mouseleave)="onHoverLeave()"
+      >
+        <!-- User Icon -->
+        <div class="user-icon" (click)="toggleProfileBox()">
           <i
             class="bi bi-person-circle"
-            style="font-size: 1.5rem; color: white"
+            style="font-size: 1.8rem; color: white"
           ></i>
-        </a>
-        <ul class="dropdown-menu dropdown-menu-end">
-          <li><a class="dropdown-item" href="#">Profile</a></li>
-          <li><a class="dropdown-item" href="#">Settings</a></li>
-          <li><hr class="dropdown-divider" /></li>
-          <li>
-            <button
-              class="dropdown-item text-danger"
-              type="button"
-              (click)="logout()"
-            >
-              Logout
-            </button>
-          </li>
-        </ul>
+        </div>
+
+        <!-- Profile Box -->
+        <div class="profile-box" *ngIf="isProfileBoxVisible">
+          <div class="profile-content">
+            <img
+              src="https://media.istockphoto.com/id/587805156/vector/profile-picture-vector-illustration.jpg?s=612x612&w=0&k=20&c=gkvLDCgsHH-8HeQe7JsjhlOY6vRBJk_sKW9lyaLgmLo="
+              alt="User"
+              class="profile-image"
+            />
+            <h6 class="username">{{ username }}</h6>
+            <p class="user-email">{{ email }}</p>
+
+            <hr />
+
+            <div class="profile-settings">
+              <i class="bi bi-gear"></i>
+              <a href="#">Change Profile Settings</a>
+            </div>
+
+            <button class="logout-btn" (click)="logout()">LOGOUT</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>

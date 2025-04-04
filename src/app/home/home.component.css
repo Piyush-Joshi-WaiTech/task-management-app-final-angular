@@ -16,8 +16,8 @@ body.dark-mode {
   padding: 25px 30px;
   border-radius: 10px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-  max-width: 1500px; /* increased width */
-  margin: -30px auto 40px auto; /* moved it up */
+  max-width: 1500px;
+  margin: -30px auto 40px auto;
 }
 
 .create-section h3 {
@@ -50,7 +50,7 @@ body.dark-mode {
   .create-section {
     padding: 20px;
     margin: 20px 10px;
-    max-width: 100%; /* full width on small devices */
+    max-width: 100%;
   }
 
   .create-section h3 {
@@ -154,7 +154,7 @@ form select {
 }
 .navbar-brand span {
   display: inline-block;
-  margin-top: 5px; /* Adjust this value as needed */
+  margin-top: 5px;
 }
 .toast-notification {
   position: fixed;
