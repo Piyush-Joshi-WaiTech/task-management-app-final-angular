@@ -100,7 +100,24 @@
                 <div class="col-6 col-md px-2 text-center text-md-start">
                   <p class="mb-0">
                     <strong>Status:</strong>
-                    <span [ngClass]="getStatusClass(task.status)">
+                    <span
+                      class="badge rounded-pill d-inline-flex align-items-center px-3 py-2 fw-semibold shadow-sm ms-2"
+                      [ngClass]="{
+                        'bg-danger text-white': task.status === 'High',
+                        'bg-warning text-dark': task.status === 'Medium',
+                        'bg-primary text-white': task.status === 'Low'
+                      }"
+                    >
+                      <i
+                        class="bi"
+                        [ngClass]="{
+                          'bi-exclamation-triangle-fill me-1':
+                            task.status === 'High',
+                          'bi-exclamation-circle-fill me-1':
+                            task.status === 'Medium',
+                          'bi-info-circle-fill me-1': task.status === 'Low'
+                        }"
+                      ></i>
                       {{ task.status }}
                     </span>
                   </p>

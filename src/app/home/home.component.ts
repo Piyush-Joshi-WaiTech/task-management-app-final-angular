@@ -16,6 +16,7 @@ export class HomeComponent {
   username: string | null = '';
   isDarkMode: boolean = false;
 
+  notification: string | null = null;
   project = {
     title: '',
     description: '',
@@ -67,6 +68,9 @@ export class HomeComponent {
 
     console.log('Project Created:', this.project);
 
+    this.notification = '✅ Project created successfully!';
+
+    // Reset form
     this.project = {
       title: '',
       description: '',
@@ -79,6 +83,10 @@ export class HomeComponent {
     };
 
     this.showError = false;
+
+    setTimeout(() => {
+      this.notification = null;
+    }, 3000);
   }
 
   validateProjectForm() {
