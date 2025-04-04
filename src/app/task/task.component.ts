@@ -20,6 +20,8 @@ export class TaskComponent implements OnInit {
   sortOption: string = '';
   selectedStatusFilter: string = '';
   assignedToFilter: string = '';
+  sortKey: string = '';
+  sortDirection: 'asc' | 'desc' = 'asc';
 
   task = {
     title: '',
@@ -226,5 +228,18 @@ export class TaskComponent implements OnInit {
 
       return matchesStatus && matchesAssignedTo;
     });
+  }
+  applySorting() {
+    if (!this.sortKey) return;
+
+    this.tasks.sort((a, b) => {
+      const aVal = a[this.sortKey]?.toString().toLowerCase() || '';
+      const bVal = b[this.sortKey]?.toString().toLowerCase() || '';
+
+      return this.sortDirection === 'asc'
+        ? aVal.localeCompare(bVal)
+        : bVal.localeCompare(aVal);
+    });
+    this.applySorting();
   }
 }

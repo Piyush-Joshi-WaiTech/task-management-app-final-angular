@@ -37,18 +37,31 @@
           </div>
         </li>
 
-        <li></li>
+        <!-- 🔁 Combined Sort Fields -->
         <li>
           <div class="px-3 py-2">
             <label class="form-label">Sort by</label>
             <select
-              class="form-select form-select-sm"
-              [(ngModel)]="sortOption"
-              (change)="sortTasks()"
+              class="form-select form-select-sm mb-2"
+              [(ngModel)]="sortKey"
+              (change)="applySorting()"
             >
-              <option disabled selected>Select Sorting</option>
-              <option value="dueDate">Due Date</option>
-              <option value="priority">Priority</option>
+              <option value="">-- Select Field --</option>
+              <option value="title">Title</option>
+              <option value="assignedTo">Assigned To</option>
+              <option value="status">Status</option>
+              <option value="estimate">Estimate</option>
+              <option value="timeSpent">Time Spent</option>
+            </select>
+
+            <label class="form-label mt-2">Order</label>
+            <select
+              class="form-select form-select-sm"
+              [(ngModel)]="sortDirection"
+              (change)="applySorting()"
+            >
+              <option value="asc">Ascending</option>
+              <option value="desc">Descending</option>
             </select>
           </div>
         </li>
