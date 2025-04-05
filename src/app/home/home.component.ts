@@ -51,6 +51,15 @@ export class HomeComponent {
     ) {
       this.router.navigate(['/login']);
     }
+
+    // ✅ Restore dark mode from localStorage if previously set
+    if (localStorage.getItem('darkMode') === 'true') {
+      this.isDarkMode = true;
+      document.body.classList.add('dark-mode');
+    } else {
+      this.isDarkMode = false;
+      document.body.classList.remove('dark-mode');
+    }
   }
 
   toggleDarkMode() {
@@ -58,8 +67,10 @@ export class HomeComponent {
 
     if (this.isDarkMode) {
       document.body.classList.add('dark-mode');
+      localStorage.setItem('darkMode', 'true');
     } else {
       document.body.classList.remove('dark-mode');
+      localStorage.setItem('darkMode', 'false');
     }
   }
 

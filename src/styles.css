@@ -107,7 +107,20 @@ body.dark-mode .project-record {
 }
 
 body.dark-mode .project-record:hover {
-  background-color: #2a3b55; /* ✨ soft blue tint */
-  box-shadow: 0 0 10px rgba(100, 150, 255, 0.3); /* subtle glow */
+  background-color: #2a3b55;
+  box-shadow: 0 0 10px rgba(100, 150, 255, 0.3);
   cursor: pointer;
+}
+/* 🌒 Dark Mode - Custom background for create-section */
+body.dark-mode .create-section {
+  background-color: #1c1c1c !important; /* Dark gray */
+  color: #f1f1f1 !important; /* Light text for contrast */
+  border-radius: 8px;
+  padding: 1rem;
+}
+/* 🌙 Dark Mode - Heading inside create-section */
+body.dark-mode .create-section h2,
+body.dark-mode .create-section h3,
+body.dark-mode .create-section h4 {
+  color: #f8f9fa !important; /* Light text for headings */
 }
