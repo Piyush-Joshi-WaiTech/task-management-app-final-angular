@@ -139,13 +139,23 @@
     </div>
 
     <div class="mb-3">
-      <label class="form-label">Estimate (hrs)</label>
-      <input type="number" class="form-control" [(ngModel)]="task.estimate" />
+      <label class="form-label">Estimate (HH:MM:SS)</label>
+      <input
+        type="text"
+        class="form-control"
+        [(ngModel)]="task.estimate"
+        placeholder="e.g. 01:30:00"
+      />
     </div>
 
     <div class="mb-3">
-      <label class="form-label">Time Spent (hrs)</label>
-      <input type="number" class="form-control" [(ngModel)]="task.timeSpent" />
+      <label class="form-label">Time Spent (HH:MM:SS)</label>
+      <input
+        type="text"
+        class="form-control"
+        [(ngModel)]="task.timeSpent"
+        placeholder="e.g. 02:15:30"
+      />
     </div>
 
     <button class="btn btn-success me-2" (click)="createTask()">
@@ -215,13 +225,14 @@
 
                 <div class="col-6 col-md px-2 text-center text-md-start">
                   <p class="mb-0">
-                    <strong>Estimate:</strong> {{ task.estimate }} hrs
+                    <strong>Estimate:</strong> {{ formatTime(task.estimate) }}
                   </p>
                 </div>
 
                 <div class="col-6 col-md px-2 text-center text-md-start">
                   <p class="mb-0">
-                    <strong>Time Spent:</strong> {{ task.timeSpent }} hrs
+                    <strong>Time Spent:</strong>
+                    {{ formatTime(task.timeSpent) }}
                   </p>
                 </div>
                 <div class="col-12 col-md-auto text-center mt-2 mt-md-0">
@@ -288,18 +299,20 @@
           <div class="mb-3">
             <label class="form-label">Estimate (hrs)</label>
             <input
-              type="number"
+              type="text"
               class="form-control"
               [(ngModel)]="editTask.estimate"
+              placeholder="e.g. 01:30:00"
             />
           </div>
 
           <div class="mb-3">
             <label class="form-label">Time Spent (hrs)</label>
             <input
-              type="number"
+              type="text"
               class="form-control"
               [(ngModel)]="editTask.timeSpent"
+              placeholder="e.g. 02:15:30"
             />
           </div>
         </div>
@@ -315,3 +328,4 @@
     </div>
   </div>
 </div>
+b

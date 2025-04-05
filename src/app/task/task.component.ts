@@ -211,9 +211,8 @@ export class TaskComponent implements OnInit {
         (task) => task.status === this.selectedStatusFilter
       );
     } else {
-      this.tasks = [...this.allTasks]; // Reset if no filter selected
+      this.tasks = [...this.allTasks];
     }
-    this.filterTasksByStatus();
   }
   applyFilters() {
     this.tasks = this.allTasks.filter((task) => {
@@ -232,14 +231,31 @@ export class TaskComponent implements OnInit {
   applySorting() {
     if (!this.sortKey) return;
 
-    this.tasks.sort((a, b) => {
-      const aVal = a[this.sortKey]?.toString().toLowerCase() || '';
-      const bVal = b[this.sortKey]?.toString().toLowerCase() || '';
+    this.tasks.sort((a: any, b: any) => {
+      let valA = a[this.sortKey];
+      let valB = b[this.sortKey];
 
-      return this.sortDirection === 'asc'
-        ? aVal.localeCompare(bVal)
-        : bVal.localeCompare(aVal);
+      if (typeof valA === 'string') valA = valA.toLowerCase();
+      if (typeof valB === 'string') valB = valB.toLowerCase();
+
+      if (valA < valB) return this.sortDirection === 'asc' ? -1 : 1;
+      if (valA > valB) return this.sortDirection === 'asc' ? 1 : -1;
+      return 0;
     });
-    this.applySorting();
+  }
+
+  formatTime(hours: number): string {
+    if (hours == null || isNaN(hours)) return '00:00:00';
+
+    const totalSeconds = Math.floor(hours * 3600);
+    const hrs = Math.floor(totalSeconds / 3600);
+    const mins = Math.floor((totalSeconds % 3600) / 60);
+    const secs = totalSeconds % 60;
+
+    return `${this.padZero(hrs)}:${this.padZero(mins)}:${this.padZero(secs)}`;
+  }
+
+  padZero(num: number): string {
+    return num < 10 ? '0' + num : num.toString();
   }
 }
