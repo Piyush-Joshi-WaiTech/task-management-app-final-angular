@@ -52,7 +52,29 @@ export class ProjectService {
     if (!loggedInUser) return [];
 
     const userProjects = localStorage.getItem(`projects_${loggedInUser}`);
-    return userProjects ? JSON.parse(userProjects) : [];
+    const projects = userProjects ? JSON.parse(userProjects) : [];
+
+    // ✅ Dynamically calculate status
+    const today = new Date();
+
+    return projects.map((project: any) => {
+      const start = new Date(project.startDate);
+      const end = new Date(project.endDate);
+
+      let status = '';
+      if (today < start) {
+        status = 'Pending';
+      } else if (today >= start && today <= end) {
+        status = 'In Progress';
+      } else {
+        status = 'Completed';
+      }
+
+      return {
+        ...project,
+        status,
+      };
+    });
   }
 
   addProject(project: any) {

@@ -87,10 +87,25 @@
                   project.taskCount
                 }}</span>
               </p>
+              <p>
+                <strong>Status: </strong>
+                <span
+                  class="badge"
+                  [ngClass]="{
+                    'bg-danger': project.status === 'Pending',
+                    'bg-warning text-dark': project.status === 'In Progress',
+                    'bg-success': project.status === 'Completed'
+                  }"
+                  style="position: relative; top: -1px"
+                >
+                  {{ project.status }}
+                </span>
+              </p>
             </div>
+
             <div class="col-md-3">
               <p><strong>Project Manager:</strong> {{ project.manager }}</p>
-              <p class="text-muted">{{ project.description }}</p>
+              <p class="text-muted fw-semibold">{{ project.description }}</p>
             </div>
           </div>
         </div>
