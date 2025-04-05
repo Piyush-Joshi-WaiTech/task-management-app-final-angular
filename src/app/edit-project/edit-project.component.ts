@@ -56,6 +56,15 @@ export class EditProjectComponent implements OnInit {
 
     let projects = this.projectService.getProjects();
 
+    // ✅ Recalculate dueDays before updating
+    if (this.project.startDate && this.project.endDate) {
+      const start = new Date(this.project.startDate);
+      const end = new Date(this.project.endDate);
+      const timeDiff = end.getTime() - start.getTime();
+      const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
+      this.project.dueDays = daysDiff > 0 ? daysDiff : 0;
+    }
+
     if (this.projectId !== null) {
       projects[this.projectId] = { ...this.project };
       localStorage.setItem(
@@ -67,6 +76,7 @@ export class EditProjectComponent implements OnInit {
     alert('✅ Your project was edited successfully!');
     this.router.navigate(['/projects']);
   }
+
   cancelEdit() {
     this.router.navigate(['/projects']);
   }

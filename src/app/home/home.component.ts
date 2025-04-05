@@ -25,7 +25,7 @@ export class HomeComponent {
     startDate: '',
     endDate: '',
     teamMember: '',
-    dueDate: '',
+    dueDays: 0, // ✅ Add this line
   };
 
   tasks: any[] = [];
@@ -52,7 +52,6 @@ export class HomeComponent {
       this.router.navigate(['/login']);
     }
 
-    // ✅ Restore dark mode from localStorage if previously set
     if (localStorage.getItem('darkMode') === 'true') {
       this.isDarkMode = true;
       document.body.classList.add('dark-mode');
@@ -80,6 +79,12 @@ export class HomeComponent {
       return;
     }
 
+    const start = new Date(this.project.startDate);
+    const end = new Date(this.project.endDate);
+    const timeDiff = end.getTime() - start.getTime();
+    const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
+    this.project.dueDays = daysDiff > 0 ? daysDiff : 0;
+
     this.projectService.addProject({ ...this.project, tasks: [] });
 
     console.log('Project Created:', this.project);
@@ -94,7 +99,7 @@ export class HomeComponent {
       startDate: '',
       endDate: '',
       teamMember: '',
-      dueDate: '',
+      dueDays: 0, // ✅ Add this line here too
     };
 
     this.showError = false;
@@ -112,8 +117,7 @@ export class HomeComponent {
       !this.project.manager ||
       !this.project.startDate ||
       !this.project.endDate ||
-      !this.project.teamMember ||
-      !this.project.dueDate;
+      !this.project.teamMember;
   }
 
   toggleTaskCreation() {

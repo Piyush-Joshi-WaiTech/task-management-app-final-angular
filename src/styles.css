@@ -1,4 +1,4 @@
-/* 🌙 Global Dark Mode */
+/*  Global Dark Mode */
 body.dark-mode {
   background-color: #121212;
   color: #f1f1f1;
@@ -88,7 +88,7 @@ body.dark-mode .border {
 body.dark-mode [data-bs-toggle="tooltip"] {
   color: #ddd;
 }
-/* 🌑 Dark mode for textarea (e.g., Description field) */
+/*  Dark mode for textarea (e.g., Description field) */
 body.dark-mode textarea.form-control {
   background-color: #2a2a2a;
   color: #fff;
@@ -111,14 +111,14 @@ body.dark-mode .project-record:hover {
   box-shadow: 0 0 10px rgba(100, 150, 255, 0.3);
   cursor: pointer;
 }
-/* 🌒 Dark Mode - Custom background for create-section */
+/*  Dark Mode - Custom background for create-section */
 body.dark-mode .create-section {
   background-color: #1c1c1c !important; /* Dark gray */
   color: #f1f1f1 !important; /* Light text for contrast */
   border-radius: 8px;
   padding: 1rem;
 }
-/* 🌙 Dark Mode - Heading inside create-section */
+/*  Dark Mode - Heading inside create-section */
 body.dark-mode .create-section h2,
 body.dark-mode .create-section h3,
 body.dark-mode .create-section h4 {

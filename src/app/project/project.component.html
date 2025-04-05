@@ -66,11 +66,27 @@
             <div class="col-md-3">
               <p><strong>Start Date:</strong> {{ project.startDate }}</p>
               <p><strong>End Date:</strong> {{ project.endDate }}</p>
-              <p><strong>Due Date:</strong> {{ project.dueDate }}</p>
+              <p>
+                <strong>Due Days:</strong>
+                <span class="text-success fw-bold ms-1">{{
+                  project.dueDays
+                }}</span>
+                days
+              </p>
             </div>
             <div class="col-md-3">
-              <p><strong>Team Members:</strong> {{ project.teamMember }}</p>
-              <p><strong>Tasks:</strong> {{ project.taskCount }}</p>
+              <p>
+                <strong>Team Members:</strong>
+                <span class="text-primary fw-bold ms-1">{{
+                  project.teamMember
+                }}</span>
+              </p>
+              <p>
+                <strong>Tasks:</strong>
+                <span class="text-warning fw-bold ms-1">{{
+                  project.taskCount
+                }}</span>
+              </p>
             </div>
             <div class="col-md-3">
               <p><strong>Project Manager:</strong> {{ project.manager }}</p>
