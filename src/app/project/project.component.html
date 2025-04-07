@@ -1,8 +1,12 @@
 <app-navbar></app-navbar>
+<div>
+  <h2>Projects</h2>
 
-<div
-  class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-3 p-3 bg-light border rounded shadow-sm"
->
+  <!-- Notification -->
+  <div *ngIf="notification" [ngClass]="notificationType">
+    {{ notification }}
+  </div>
+
   <!-- 🔍 Search Bar -->
   <div class="mb-2 mb-md-0 w-100 me-md-3">
     <input
@@ -12,6 +16,12 @@
       [(ngModel)]="searchQuery"
       (input)="filterProjects()"
     />
+  </div>
+  <!-- Sort Buttons -->
+  <div class="sort-buttons mt-3">
+    <button (click)="toggleSortOrder()">
+      Sort by Title ({{ sortOrder === "asc" ? "Ascending" : "Descending" }})
+    </button>
   </div>
 </div>
 

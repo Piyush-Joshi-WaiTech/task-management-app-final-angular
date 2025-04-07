@@ -18,6 +18,7 @@ export class ProjectComponent implements OnInit {
   notification: string | null = null;
   notificationType: 'success' | 'error' | null = null;
   searchQuery: string = '';
+  sortOrder: 'asc' | 'desc' = 'asc'; // New property to track sort order
 
   project = {
     title: '',
@@ -85,7 +86,7 @@ export class ProjectComponent implements OnInit {
         JSON.stringify(this.projects)
       );
 
-      this.showNotification('✅ Project deleted successfully!', 'success');
+      this.showPopupNotification('✅ Project deleted successfully!', 'success');
     }
   }
 
@@ -95,6 +96,7 @@ export class ProjectComponent implements OnInit {
       const storedTasks = localStorage.getItem(`tasks_${project.title}`);
       project.taskCount = storedTasks ? JSON.parse(storedTasks).length : 0;
     });
+    this.sortProjects(); // Sort projects initially
   }
 
   private saveProjectsToLocalStorage() {
@@ -121,6 +123,17 @@ export class ProjectComponent implements OnInit {
     setTimeout(() => {
       this.notification = null;
       this.notificationType = null;
+    }, 3000);
+  }
+
+  showPopupNotification(message: string, type: 'success' | 'error') {
+    const popup = document.createElement('div');
+    popup.className = `popup-notification ${type}`;
+    popup.innerText = message;
+    document.body.appendChild(popup);
+
+    setTimeout(() => {
+      popup.remove();
     }, 3000);
   }
 
@@ -166,6 +179,7 @@ export class ProjectComponent implements OnInit {
       }
     }
   }
+
   filterProjects() {
     const allProjects = this.projectService.getProjects();
     const query = this.searchQuery.toLowerCase();
@@ -184,5 +198,19 @@ export class ProjectComponent implements OnInit {
 
       return titleMatch || descMatch || taskMatch;
     });
+  }
+
+  // New method to sort projects
+  sortProjects() {
+    this.projects.sort((a, b) => {
+      const comparison = a.title.localeCompare(b.title);
+      return this.sortOrder === 'asc' ? comparison : -comparison;
+    });
+  }
+
+  // New method to toggle sort order and sort projects
+  toggleSortOrder() {
+    this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
+    this.sortProjects();
   }
 }

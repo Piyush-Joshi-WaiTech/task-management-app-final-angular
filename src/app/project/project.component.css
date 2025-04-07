@@ -74,3 +74,30 @@ input::placeholder {
     transform: translateY(-10px);
   }
 }
+/* Styles for notification */
+.success {
+  color: green;
+}
+.error {
+  color: red;
+}
+
+/* Styles for sort buttons */
+.sort-buttons {
+  margin-bottom: 1em;
+}
+.sort-buttons button {
+  margin-right: 0.5em;
+}
+
+/* Styles for project list */
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+li {
+  margin-bottom: 1em;
+}
+button {
+  margin-right: 0.5em;
+}
