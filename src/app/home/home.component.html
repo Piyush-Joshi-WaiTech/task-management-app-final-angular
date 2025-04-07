@@ -125,22 +125,23 @@
         </div>
       </div>
 
-      <div class="form-group">
-        <label for="teamMember">Team Members</label>
-        <input
-          type="number"
-          id="teamMember"
-          [(ngModel)]="project.teamMember"
-          name="teamMember"
-          class="form-control"
-          (input)="validateProjectForm()"
-          [ngClass]="{ 'is-invalid': showError && !project.teamMember }"
-          placeholder="Enter Team Member"
-          required
-        />
-        <div *ngIf="showError && !project.teamMember" class="invalid-feedback">
-          Team Member is required.
-        </div>
+      <input
+        type="number"
+        min="1"
+        id="teamMember"
+        [(ngModel)]="project.teamMember"
+        name="teamMember"
+        class="form-control"
+        (input)="validateProjectForm()"
+        [ngClass]="{ 'is-invalid': showError && project.teamMember <= 0 }"
+        placeholder="Enter Team Member"
+        required
+      />
+      <div
+        *ngIf="showError && project.teamMember <= 0"
+        class="invalid-feedback"
+      >
+        Team Member must be greater than 0.
       </div>
 
       <!-- <div class="form-group">

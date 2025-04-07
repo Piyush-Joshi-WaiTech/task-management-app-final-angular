@@ -24,8 +24,8 @@ export class HomeComponent {
     manager: '',
     startDate: '',
     endDate: '',
-    teamMember: '',
-    dueDays: 0, // ✅ Add this line
+    teamMember: 0, // ✅ FIXED: was '' (string)
+    dueDays: 0,
   };
 
   tasks: any[] = [];
@@ -98,7 +98,7 @@ export class HomeComponent {
       manager: '',
       startDate: '',
       endDate: '',
-      teamMember: '',
+      teamMember: 0,
       dueDays: 0, // ✅ Add this line here too
     };
 
@@ -117,7 +117,7 @@ export class HomeComponent {
       !this.project.manager ||
       !this.project.startDate ||
       !this.project.endDate ||
-      !this.project.teamMember;
+      this.project.teamMember <= 0;
   }
 
   toggleTaskCreation() {

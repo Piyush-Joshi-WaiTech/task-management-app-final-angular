@@ -28,7 +28,7 @@ export class ProjectComponent implements OnInit {
     startDate: '',
     endDate: '',
     dueDate: '',
-    teamMember: 0,
+    teamMember: -1, // Default value set to -1 for validation
     tasks: [],
   };
 
@@ -42,9 +42,13 @@ export class ProjectComponent implements OnInit {
     if (
       !this.project.title.trim() ||
       !this.project.description.trim() ||
-      !this.project.createdBy.trim()
+      !this.project.createdBy.trim() ||
+      this.project.teamMember === -1 // Check if teamMember is -1
     ) {
-      this.showNotification('⚠️ Please fill in all required fields.', 'error');
+      this.showNotification(
+        '⚠️ Please fill in all required fields and select a valid number of team members.',
+        'error'
+      );
       return;
     }
 
@@ -112,7 +116,7 @@ export class ProjectComponent implements OnInit {
       startDate: '',
       endDate: '',
       dueDate: '',
-      teamMember: 0,
+      teamMember: -1, // Reset to default value
       tasks: [],
     };
   }
@@ -145,9 +149,13 @@ export class ProjectComponent implements OnInit {
     if (
       !this.project.title.trim() ||
       !this.project.description.trim() ||
-      !this.project.createdBy.trim()
+      !this.project.createdBy.trim() ||
+      this.project.teamMember === -1 // Check if teamMember is -1
     ) {
-      this.showNotification('⚠️ Please fill in all required fields.', 'error');
+      this.showNotification(
+        '⚠️ Please fill in all required fields and select a valid number of team members.',
+        'error'
+      );
       return;
     }
 
