@@ -56,7 +56,24 @@ input::placeholder {
 .project-record:hover::after {
   opacity: 1;
 }
-
+/* Styles for sort buttons */
+.sort-buttons {
+  margin-bottom: 1em;
+  display: flex;
+  justify-content: flex-start;
+}
+.sort-buttons button {
+  margin-right: 0.5em;
+  padding: 0.5em 1em;
+  font-size: 1rem;
+  border-radius: 4px;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+.sort-buttons button:hover {
+  background-color: #007bff;
+  color: white;
+  box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+}
 @keyframes fadeInOut {
   0% {
     opacity: 0;
