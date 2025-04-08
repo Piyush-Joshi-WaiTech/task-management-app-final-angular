@@ -18,7 +18,8 @@ export class ProjectComponent implements OnInit {
   notification: string | null = null;
   notificationType: 'success' | 'error' | null = null;
   searchQuery: string = '';
-  sortOrder: 'asc' | 'desc' = 'asc'; // New property to track sort order
+  sortOrder: 'asc' | 'desc' = 'asc';
+  username: string = '';
 
   project = {
     title: '',
@@ -35,7 +36,18 @@ export class ProjectComponent implements OnInit {
   constructor(private projectService: ProjectService, private router: Router) {}
 
   ngOnInit() {
+    const loggedInEmail = localStorage.getItem('email');
+    if (loggedInEmail) {
+      this.username = this.extractUsername(loggedInEmail);
+    }
+
     this.loadUserProjects();
+  }
+  private extractUsername(email: string): string {
+    // Example: turns "john.doe@example.com" → "John Doe"
+    const namePart = email.split('@')[0];
+    const parts = namePart.split('.');
+    return parts.map((p) => p.charAt(0).toUpperCase() + p.slice(1)).join(' ');
   }
 
   createProject() {

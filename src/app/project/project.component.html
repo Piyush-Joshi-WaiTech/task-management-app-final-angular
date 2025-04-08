@@ -1,14 +1,12 @@
 <app-navbar></app-navbar>
 <div>
-  <h2>Projects</h2>
-
   <!-- Notification -->
   <div *ngIf="notification" [ngClass]="notificationType">
     {{ notification }}
   </div>
 
   <!-- 🔍 Search Bar -->
-  <div class="mb-2 mb-md-0 w-100 me-md-3">
+  <div class="mb-2 mb-md-0 w-100 me-md-3 mt-3">
     <input
       type="text"
       class="form-control"
@@ -27,7 +25,15 @@
 </div>
 
 <div class="container mt-4">
-  <h2 class="mb-4">Your Projects</h2>
+  <h2
+    class="mb-4 fw-bold text-primary"
+    style="
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      letter-spacing: 0.5px;
+    "
+  >
+    🚀 Projects for {{ username }}:
+  </h2>
 
   <!-- Updated Notification -->
   <div
