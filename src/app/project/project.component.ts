@@ -44,7 +44,6 @@ export class ProjectComponent implements OnInit {
     this.loadUserProjects();
   }
   private extractUsername(email: string): string {
-    // Example: turns "john.doe@example.com" → "John Doe"
     const namePart = email.split('@')[0];
     const parts = namePart.split('.');
     return parts.map((p) => p.charAt(0).toUpperCase() + p.slice(1)).join(' ');
@@ -55,7 +54,7 @@ export class ProjectComponent implements OnInit {
       !this.project.title.trim() ||
       !this.project.description.trim() ||
       !this.project.createdBy.trim() ||
-      this.project.teamMember === -1 // Check if teamMember is -1
+      this.project.teamMember === -1
     ) {
       this.showNotification(
         '⚠️ Please fill in all required fields and select a valid number of team members.',
@@ -112,7 +111,7 @@ export class ProjectComponent implements OnInit {
       const storedTasks = localStorage.getItem(`tasks_${project.title}`);
       project.taskCount = storedTasks ? JSON.parse(storedTasks).length : 0;
     });
-    this.sortProjects(); // Sort projects initially
+    this.sortProjects();
   }
 
   private saveProjectsToLocalStorage() {
@@ -128,7 +127,7 @@ export class ProjectComponent implements OnInit {
       startDate: '',
       endDate: '',
       dueDate: '',
-      teamMember: -1, // Reset to default value
+      teamMember: -1,
       tasks: [],
     };
   }
