@@ -29,7 +29,7 @@ export class ProjectComponent implements OnInit {
     startDate: '',
     endDate: '',
     dueDate: '',
-    teamMember: -1, // Default value set to -1 for validation
+    teamMember: -1,
     tasks: [],
   };
 
@@ -161,7 +161,7 @@ export class ProjectComponent implements OnInit {
       !this.project.title.trim() ||
       !this.project.description.trim() ||
       !this.project.createdBy.trim() ||
-      this.project.teamMember === -1 // Check if teamMember is -1
+      this.project.teamMember === -1
     ) {
       this.showNotification(
         '⚠️ Please fill in all required fields and select a valid number of team members.',
@@ -207,7 +207,7 @@ export class ProjectComponent implements OnInit {
       const titleMatch = project.title.toLowerCase().includes(query);
       const descMatch = project.description.toLowerCase().includes(query);
 
-      // Check task titles too
+
       const storedTasks = localStorage.getItem(`tasks_${project.title}`);
       const tasks = storedTasks ? JSON.parse(storedTasks) : [];
 
@@ -219,7 +219,7 @@ export class ProjectComponent implements OnInit {
     });
   }
 
-  // New method to sort projects
+
   sortProjects() {
     this.projects.sort((a, b) => {
       const comparison = a.title.localeCompare(b.title);
@@ -227,7 +227,7 @@ export class ProjectComponent implements OnInit {
     });
   }
 
-  // New method to toggle sort order and sort projects
+
   toggleSortOrder() {
     this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
     this.sortProjects();
