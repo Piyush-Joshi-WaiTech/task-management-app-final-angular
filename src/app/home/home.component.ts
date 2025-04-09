@@ -24,8 +24,9 @@ export class HomeComponent {
     manager: '',
     startDate: '',
     endDate: '',
-    teamMember: 0, // ✅ FIXED: was '' (string)
+    teamMember: 0,
     dueDays: 0,
+    teamMembersArray: [] as string[], // 👈 new field
   };
 
   tasks: any[] = [];
@@ -39,10 +40,14 @@ export class HomeComponent {
   isTaskCreationVisible: boolean = false;
   showError: boolean = false;
   showTaskError: boolean = false;
+  isTeamDropdownOpen = false; // Toggle for dropdown
 
   constructor(private router: Router, private projectService: ProjectService) {
     if (typeof localStorage !== 'undefined') {
       this.username = localStorage.getItem('email');
+    }
+    if (this.username) {
+      this.project.createdBy = this.username;
     }
 
     if (
@@ -94,12 +99,13 @@ export class HomeComponent {
     this.project = {
       title: '',
       description: '',
-      createdBy: '',
+      createdBy: this.username || '',
       manager: '',
       startDate: '',
       endDate: '',
       teamMember: 0,
-      dueDays: 0, // ✅ Add this line here too
+      dueDays: 0,
+      teamMembersArray: [],
     };
 
     this.showError = false;
@@ -122,6 +128,20 @@ export class HomeComponent {
 
   toggleTaskCreation() {
     this.isTaskCreationVisible = !this.isTaskCreationVisible;
+  }
+  availableTeamMembers = ['Alice', 'Bob', 'Charlie', 'David', 'Eva', 'Frank'];
+
+  onTeamMemberChange(name: string, event: Event) {
+    const isChecked = (event.target as HTMLInputElement).checked;
+
+    if (isChecked) {
+      this.project.teamMembersArray.push(name);
+    } else {
+      const index = this.project.teamMembersArray.indexOf(name);
+      if (index !== -1) this.project.teamMembersArray.splice(index, 1);
+    }
+
+    this.project.teamMember = this.project.teamMembersArray.length;
   }
 
   createTask() {
