@@ -20,6 +20,15 @@ export class ProjectComponent implements OnInit {
   searchQuery: string = '';
   sortOrder: 'asc' | 'desc' = 'asc';
   username: string = '';
+  teamOptions: string[] = [
+    'Tejas',
+    'Ganesh',
+    'Kalyan',
+    'Om',
+    'Rushi',
+    'Harshwardhan',
+  ];
+  selectedTeamMembers: string[] = [];
 
   project = {
     title: '',
@@ -69,11 +78,20 @@ export class ProjectComponent implements OnInit {
     let projects = this.projectService.getProjects();
 
     if (this.editingIndex !== null) {
-      projects[this.editingIndex] = { ...this.project };
+      projects[this.editingIndex] = {
+        ...this.project,
+        teamMember: this.selectedTeamMembers,
+      };
+
       this.showNotification('✅ Project updated successfully!', 'success');
       this.editingIndex = null;
     } else {
-      projects.push({ ...this.project, tasks: [] });
+      projects.push({
+        ...this.project,
+        teamMember: this.selectedTeamMembers,
+        tasks: [],
+      });
+
       this.showNotification('✅ Project created successfully!', 'success');
     }
 
@@ -81,6 +99,7 @@ export class ProjectComponent implements OnInit {
 
     this.loadUserProjects();
     this.resetProjectForm();
+    this.selectedTeamMembers = [];
   }
 
   deleteProject(index: number, event: Event) {
@@ -102,6 +121,36 @@ export class ProjectComponent implements OnInit {
       );
 
       this.showPopupNotification('✅ Project deleted successfully!', 'success');
+    }
+  }
+  selectedProject: any = null;
+
+  viewProject(project: any, event: Event) {
+    event.stopPropagation();
+    this.selectedProject = project;
+
+    const modal = document.getElementById('viewProjectModal');
+    if (modal) {
+      (modal as any).style.display = 'block';
+      setTimeout(() => modal?.classList.add('show'), 10);
+    }
+  }
+  onCheckboxChange(event: any): void {
+    const member = event.target.value;
+    if (event.target.checked) {
+      this.selectedTeamMembers.push(member);
+    } else {
+      this.selectedTeamMembers = this.selectedTeamMembers.filter(
+        (m) => m !== member
+      );
+    }
+  }
+
+  closeViewModal() {
+    const modal = document.getElementById('viewProjectModal');
+    if (modal) {
+      modal.classList.remove('show');
+      setTimeout(() => (modal.style.display = 'none'), 200);
     }
   }
 
@@ -176,7 +225,11 @@ export class ProjectComponent implements OnInit {
     let projects = this.projectService.getProjects();
 
     if (this.editingIndex !== null) {
-      projects[this.editingIndex] = { ...this.project };
+      projects[this.editingIndex] = {
+        ...this.project,
+        teamMember: this.selectedTeamMembers,
+      };
+
       this.showNotification('✅ Project updated successfully!', 'success');
       this.editingIndex = null;
     }
@@ -207,7 +260,6 @@ export class ProjectComponent implements OnInit {
       const titleMatch = project.title.toLowerCase().includes(query);
       const descMatch = project.description.toLowerCase().includes(query);
 
-
       const storedTasks = localStorage.getItem(`tasks_${project.title}`);
       const tasks = storedTasks ? JSON.parse(storedTasks) : [];
 
@@ -219,14 +271,12 @@ export class ProjectComponent implements OnInit {
     });
   }
 
-
   sortProjects() {
     this.projects.sort((a, b) => {
       const comparison = a.title.localeCompare(b.title);
       return this.sortOrder === 'asc' ? comparison : -comparison;
     });
   }
-
 
   toggleSortOrder() {
     this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';

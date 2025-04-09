@@ -17,6 +17,14 @@ export class HomeComponent {
   isDarkMode = false;
 
   notification: string | null = null;
+  availableTeamMembers = [
+    'Tejas',
+    'Ganesh',
+    'Kalyan',
+    'Om',
+    'Rushi',
+    'Harshwardhan',
+  ];
   project = {
     title: '',
     description: '',
@@ -90,7 +98,11 @@ export class HomeComponent {
     const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
     this.project.dueDays = daysDiff > 0 ? daysDiff : 0;
 
-    this.projectService.addProject({ ...this.project, tasks: [] });
+    this.projectService.addProject({
+      ...this.project,
+      tasks: [],
+      teamMember: [...this.project.teamMembersArray], // 👈 Store names, not just the count
+    });
 
     console.log('Project Created:', this.project);
 
@@ -129,18 +141,16 @@ export class HomeComponent {
   toggleTaskCreation() {
     this.isTaskCreationVisible = !this.isTaskCreationVisible;
   }
-  availableTeamMembers = ['Alice', 'Bob', 'Charlie', 'David', 'Eva', 'Frank'];
 
-  onTeamMemberChange(name: string, event: Event) {
-    const isChecked = (event.target as HTMLInputElement).checked;
-
-    if (isChecked) {
-      this.project.teamMembersArray.push(name);
+  onTeamMemberChange(member: string, event: Event) {
+    const checked = (event.target as HTMLInputElement).checked;
+    if (checked) {
+      this.project.teamMembersArray.push(member);
     } else {
-      const index = this.project.teamMembersArray.indexOf(name);
-      if (index !== -1) this.project.teamMembersArray.splice(index, 1);
+      this.project.teamMembersArray = this.project.teamMembersArray.filter(
+        (m) => m !== member
+      );
     }
-
     this.project.teamMember = this.project.teamMembersArray.length;
   }
 

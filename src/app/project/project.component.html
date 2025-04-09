@@ -88,10 +88,11 @@
             <div class="col-md-3">
               <p>
                 <strong>Team Members:</strong>
-                <span class="text-primary fw-bold ms-1">{{
-                  project.teamMember
-                }}</span>
+                <span class="text-primary fw-bold ms-1">
+                  {{ project.teamMember?.length || 0 }}
+                </span>
               </p>
+
               <p>
                 <strong>Tasks:</strong>
                 <span class="text-warning fw-bold ms-1">{{
@@ -121,13 +122,84 @@
           </div>
         </div>
       </div>
+      <!-- View Project Modal -->
+      <div
+        id="viewProjectModal"
+        class="modal fade"
+        tabindex="-1"
+        style="display: none; background-color: rgba(0, 0, 0, 0.5)"
+      >
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title text-primary">📋 Project Details</h5>
+              <button
+                type="button"
+                class="btn-close"
+                (click)="closeViewModal()"
+              ></button>
+            </div>
+            <div class="modal-body" *ngIf="selectedProject">
+              <p><strong>Title:</strong> {{ selectedProject.title }}</p>
+              <p>
+                <strong>Description:</strong> {{ selectedProject.description }}
+              </p>
+              <p>
+                <strong>Created By:</strong> {{ selectedProject.createdBy }}
+              </p>
+              <p>
+                <strong>Project Manager:</strong> {{ selectedProject.manager }}
+              </p>
+              <p>
+                <strong>Start Date:</strong> {{ selectedProject.startDate }}
+              </p>
+              <p><strong>End Date:</strong> {{ selectedProject.endDate }}</p>
+              <p><strong>Due Days:</strong> {{ selectedProject.dueDays }}</p>
+              <p>
+                <strong>Team Members:</strong>
+                <span *ngIf="selectedProject.teamMember?.length; else noTeam">
+                  <span
+                    *ngFor="
+                      let member of selectedProject.teamMember;
+                      let i = index
+                    "
+                  >
+                    {{ member
+                    }}<span *ngIf="i < selectedProject.teamMember.length - 1"
+                      >,
+                    </span>
+                  </span>
+                </span>
+                <ng-template #noTeam
+                  ><em>No team members selected</em></ng-template
+                >
+              </p>
+
+              <p><strong>Status:</strong> {{ selectedProject.status }}</p>
+              <p>
+                <strong>Total Tasks:</strong> {{ selectedProject.taskCount }}
+              </p>
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-secondary" (click)="closeViewModal()">
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <!-- Action Buttons -->
       <div class="d-flex justify-content-end gap-2 mb-3">
+        <button
+          class="btn btn-outline-secondary"
+          (click)="viewProject(project, $event)"
+        >
+          👁 View
+        </button>
         <a [routerLink]="['/projects/edit', i]" class="btn btn-primary"
           >✏️ Edit</a
         >
-
         <button
           class="btn btn-sm btn-outline-danger"
           (click)="deleteProject(i, $event)"
