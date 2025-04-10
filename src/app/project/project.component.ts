@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { ProjectService } from '../services/project.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-project',
@@ -110,19 +111,36 @@ export class ProjectComponent implements OnInit {
 
     const projectTitle = this.projects[index].title;
 
-    if (
-      confirm(`Are you sure you want to delete the project "${projectTitle}"?`)
-    ) {
-      this.projects.splice(index, 1);
+    Swal.fire({
+      title: `Delete "${projectTitle}"?`,
+      text: 'This action cannot be undone!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'Cancel',
+      reverseButtons: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.projects.splice(index, 1);
+        localStorage.setItem(
+          `projects_${loggedInUser}`,
+          JSON.stringify(this.projects)
+        );
 
-      localStorage.setItem(
-        `projects_${loggedInUser}`,
-        JSON.stringify(this.projects)
-      );
-
-      this.showPopupNotification('✅ Project deleted successfully!', 'success');
-    }
+        // Show toast notification
+        Swal.fire({
+          toast: true,
+          position: 'top-end',
+          icon: 'success',
+          title: 'Project deleted successfully!',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+        });
+      }
+    });
   }
+
   selectedProject: any = null;
 
   viewProject(project: any, event: Event) {
