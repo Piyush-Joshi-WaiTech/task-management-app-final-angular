@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
   signUpEmail: string = '';
   signUpPassword: string = '';
   isSignUp: boolean = false;
+  signUpUsername: string = '';
 
   constructor(private router: Router) {}
 
@@ -36,22 +37,21 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    if (typeof window !== 'undefined') {
-      const storedUsers = JSON.parse(localStorage.getItem('users') || '[]');
+    const storedUsers = JSON.parse(localStorage.getItem('users') || '[]');
 
-      const foundUser = storedUsers.find(
-        (user: any) =>
-          user.email === this.email && user.password === this.password
-      );
+    const foundUser = storedUsers.find(
+      (user: any) =>
+        (user.email === this.email || user.username === this.email) &&
+        user.password === this.password
+    );
 
-      if (foundUser) {
-        localStorage.setItem('email', this.email);
-
-        localStorage.setItem('loggedIn', 'true');
-        this.router.navigate(['/home']);
-      } else {
-        this.showError = true;
-      }
+    if (foundUser) {
+      localStorage.setItem('email', foundUser.email);
+      localStorage.setItem('username', foundUser.username);
+      localStorage.setItem('loggedIn', 'true');
+      this.router.navigate(['/home']);
+    } else {
+      this.showError = true;
     }
   }
 
@@ -61,35 +61,56 @@ export class LoginComponent implements OnInit {
   }
 
   signUp() {
-    if (this.signUpEmail.trim() === '' || this.signUpPassword.trim() === '') {
+    if (
+      this.signUpEmail.trim() === '' ||
+      this.signUpPassword.trim() === '' ||
+      this.signUpUsername.trim() === '' ||
+      !this.isValidEmail(this.signUpEmail)
+    ) {
       this.showError = true;
       return;
     }
 
-    if (typeof window !== 'undefined') {
-      const storedUsers = JSON.parse(localStorage.getItem('users') || '[]');
+    const storedUsers = JSON.parse(localStorage.getItem('users') || '[]');
 
-      const emailExists = storedUsers.some(
-        (user: any) => user.email === this.signUpEmail
-      );
+    const emailExists = storedUsers.some(
+      (user: any) => user.email === this.signUpEmail
+    );
+    const usernameExists = storedUsers.some(
+      (user: any) => user.username === this.signUpUsername
+    );
 
-      if (emailExists) {
-        alert('This email is already registered. Please login.');
-        this.toggleSignUp();
-        return;
-      }
-
-      storedUsers.push({
-        email: this.signUpEmail,
-        password: this.signUpPassword,
-      });
-      localStorage.setItem('users', JSON.stringify(storedUsers));
-
-      alert('Sign-up successful! Please log in.');
-      this.isSignUp = false;
-      this.signUpEmail = '';
-      this.signUpPassword = '';
+    if (emailExists || usernameExists) {
+      alert('This email or username is already registered. Please login.');
+      this.toggleSignUp();
+      return;
     }
+
+    storedUsers.push({
+      email: this.signUpEmail,
+      password: this.signUpPassword,
+      username: this.signUpUsername,
+    });
+
+    localStorage.setItem('users', JSON.stringify(storedUsers));
+
+    alert('Sign-up successful! Please log in.');
+    this.isSignUp = false;
+    this.signUpEmail = '';
+    this.signUpPassword = '';
+    this.signUpUsername = '';
+  }
+
+  isValidEmail(email: string): boolean {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  }
+  validateSignUpInput() {
+    this.showError =
+      !this.signUpEmail ||
+      !this.signUpPassword ||
+      !this.signUpUsername ||
+      !this.isValidEmail(this.signUpEmail);
   }
 
   validateInput() {

@@ -49,17 +49,27 @@
       >
         <!-- User Icon -->
         <div class="user-icon" (click)="toggleProfileBox()">
-          <i
-            class="bi bi-person-circle"
-            style="font-size: 1.8rem; color: white"
-          ></i>
+          <img
+            *ngIf="profileImage !== defaultImage; else defaultIcon"
+            [src]="profileImage"
+            alt="Profile"
+            class="rounded-circle"
+            width="38"
+            height="38"
+          />
+          <ng-template #defaultIcon>
+            <i
+              class="bi bi-person-circle"
+              style="font-size: 1.8rem; color: white"
+            ></i>
+          </ng-template>
         </div>
 
         <!-- Profile Box -->
         <div class="profile-box" *ngIf="isProfileBoxVisible">
           <div class="profile-content">
             <img [src]="profileImage" alt="User" class="profile-image" />
-            <h6 class="username">{{ username }}</h6>
+
             <p class="user-email">{{ email }}</p>
 
             <hr />

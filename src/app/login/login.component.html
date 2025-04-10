@@ -74,12 +74,32 @@
             class="form-control"
             [(ngModel)]="signUpEmail"
             placeholder="Enter Email"
-            (input)="validateInput()"
-            [ngClass]="{ 'is-invalid': showError && !signUpEmail }"
+            (input)="validateSignUpInput()"
+            [ngClass]="{
+              'is-invalid': showError && !isValidEmail(signUpEmail)
+            }"
             id="signUpEmail"
           />
-          <div *ngIf="showError && !signUpEmail" class="invalid-feedback">
-            Please enter a valid email.
+          <div
+            *ngIf="showError && !isValidEmail(signUpEmail)"
+            class="invalid-feedback"
+          >
+            Please enter a valid email (e.g. john.com).
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="signUpUsername">Username</label>
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="signUpUsername"
+            placeholder="Enter Username"
+            [ngClass]="{ 'is-invalid': showError && !signUpUsername }"
+            id="signUpUsername"
+          />
+          <div *ngIf="showError && !signUpUsername" class="invalid-feedback">
+            Please enter a username.
           </div>
         </div>
 

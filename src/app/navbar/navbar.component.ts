@@ -13,6 +13,7 @@ declare var bootstrap: any;
   imports: [CommonModule, RouterModule, FormsModule],
 })
 export class NavbarComponent implements OnInit, OnDestroy {
+  defaultImage: string = '';
   isProfileBoxVisible = false;
   clickedToOpen = false;
   username: string | null = localStorage.getItem('loggedInUser') || 'User';
@@ -25,6 +26,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   constructor(private router: Router) {}
 
   ngOnInit() {
+    this.loadProfileFromLocalStorage();
     this.username = localStorage.getItem('username') || 'Guest User';
     this.email = localStorage.getItem('email') || 'guest@example.com';
 
@@ -77,17 +79,25 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.router.navigate(['/login']);
   }
 
-  onProfileImageChange(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files[0]) {
+  onProfileImageChange(event: any) {
+    const file = event.target.files[0];
+    if (file) {
       const reader = new FileReader();
-      reader.onload = (e: any) => {
-        this.profileImage = e.target.result;
+      reader.onload = () => {
+        this.profileImage = reader.result as string;
       };
-      reader.readAsDataURL(input.files[0]);
+      reader.readAsDataURL(file);
     }
   }
+  loadProfileFromLocalStorage() {
+    const storedImage = localStorage.getItem('profileImage');
+    const storedName = localStorage.getItem('username');
+    const storedEmail = localStorage.getItem('email');
 
+    this.profileImage = storedImage ? storedImage : this.defaultImage;
+    this.username = storedName || 'User';
+    this.email = storedEmail || 'user@example.com';
+  }
   saveProfileChanges(): void {
     localStorage.setItem('username', this.username ?? 'Guest User');
     localStorage.setItem('profileImage', this.profileImage);
