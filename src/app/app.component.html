@@ -1,3 +1,6 @@
 <app-navbar></app-navbar>
 
-<router-outlet></router-outlet>
+<!-- Push the rest of the content down so it's not hidden under the fixed navbar -->
+<div class="main-wrapper" style="margin-top: 75px">
+  <router-outlet></router-outlet>
+</div>
