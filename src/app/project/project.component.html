@@ -144,46 +144,72 @@
               ></button>
             </div>
             <div class="modal-body" *ngIf="selectedProject">
-              <p><strong>Title:</strong> {{ selectedProject.title }}</p>
-              <p>
-                <strong>Description:</strong> {{ selectedProject.description }}
-              </p>
-              <p>
-                <strong>Created By:</strong> {{ selectedProject.createdBy }}
-              </p>
-              <p>
-                <strong>Project Manager:</strong> {{ selectedProject.manager }}
-              </p>
-              <p>
-                <strong>Start Date:</strong> {{ selectedProject.startDate }}
-              </p>
-              <p><strong>End Date:</strong> {{ selectedProject.endDate }}</p>
-              <p><strong>Due Days:</strong> {{ selectedProject.dueDays }}</p>
-              <p>
-                <strong>Team Members:</strong>
-                <span *ngIf="selectedProject.teamMember?.length; else noTeam">
-                  <span
-                    *ngFor="
-                      let member of selectedProject.teamMember;
-                      let i = index
-                    "
-                  >
-                    {{ member
-                    }}<span *ngIf="i < selectedProject.teamMember.length - 1"
-                      >,
-                    </span>
-                  </span>
-                </span>
-                <ng-template #noTeam
-                  ><em>No team members selected</em></ng-template
-                >
-              </p>
-
-              <p><strong>Status:</strong> {{ selectedProject.status }}</p>
-              <p>
-                <strong>Total Tasks:</strong> {{ selectedProject.taskCount }}
-              </p>
+              <div class="container-fluid">
+                <div class="row mb-3">
+                  <div class="col-md-6">
+                    <p>
+                      <strong>📌 Title:</strong> {{ selectedProject.title }}
+                    </p>
+                    <p>
+                      <strong>📝 Description:</strong>
+                      {{ selectedProject.description }}
+                    </p>
+                    <p>
+                      <strong>👤 Created By:</strong>
+                      {{ selectedProject.createdBy }}
+                    </p>
+                    <p>
+                      <strong>👔 Project Manager:</strong>
+                      {{ selectedProject.manager }}
+                    </p>
+                    <p>
+                      <strong>📅 Start Date:</strong>
+                      {{ selectedProject.startDate }}
+                    </p>
+                    <p>
+                      <strong>📆 End Date:</strong>
+                      {{ selectedProject.endDate }}
+                    </p>
+                  </div>
+                  <div class="col-md-6">
+                    <p>
+                      <strong>⏳ Due Days:</strong>
+                      {{ selectedProject.dueDays }}
+                    </p>
+                    <p>
+                      <strong>👥 Team Members:</strong>
+                      <span
+                        *ngIf="selectedProject.teamMember?.length; else noTeam"
+                      >
+                        <span
+                          *ngFor="
+                            let member of selectedProject.teamMember;
+                            let i = index
+                          "
+                        >
+                          {{ member
+                          }}<span
+                            *ngIf="i < selectedProject.teamMember.length - 1"
+                            >,
+                          </span>
+                        </span>
+                      </span>
+                      <ng-template #noTeam
+                        ><em>No team members selected</em></ng-template
+                      >
+                    </p>
+                    <p>
+                      <strong>📊 Status:</strong> {{ selectedProject.status }}
+                    </p>
+                    <p>
+                      <strong>✅ Total Tasks:</strong>
+                      {{ selectedProject.taskCount }}
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
+
             <div class="modal-footer">
               <button class="btn btn-secondary" (click)="closeViewModal()">
                 Close
