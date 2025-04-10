@@ -58,20 +58,21 @@
         <!-- Profile Box -->
         <div class="profile-box" *ngIf="isProfileBoxVisible">
           <div class="profile-content">
-            <img
-              src="https://media.istockphoto.com/id/587805156/vector/profile-picture-vector-illustration.jpg?s=612x612&w=0&k=20&c=gkvLDCgsHH-8HeQe7JsjhlOY6vRBJk_sKW9lyaLgmLo="
-              alt="User"
-              class="profile-image"
-            />
+            <img [src]="profileImage" alt="User" class="profile-image" />
             <h6 class="username">{{ username }}</h6>
             <p class="user-email">{{ email }}</p>
 
             <hr />
 
-            <div class="profile-settings">
+            <button
+              class="profile-settings btn btn-link d-inline-flex align-items-center text-start"
+              data-bs-toggle="modal"
+              data-bs-target="#profileSettingsModal"
+            >
               <i class="bi bi-gear"></i>
-              <a href="#">Change Profile Settings</a>
-            </div>
+              Change Profile Picture
+              <span class="fw-bold ms-1">({{ username }})</span>
+            </button>
 
             <button class="logout-btn" (click)="logout()">LOGOUT</button>
           </div>
@@ -80,3 +81,57 @@
     </div>
   </div>
 </nav>
+<!-- Profile Settings Modal -->
+<div
+  class="modal fade"
+  id="profileSettingsModal"
+  tabindex="-1"
+  aria-labelledby="profileSettingsModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content bg-dark text-white">
+      <div class="modal-header">
+        <h5 class="modal-title" id="profileSettingsModalLabel">
+          Change Profile Picture
+        </h5>
+        <button
+          type="button"
+          class="btn-close btn-close-white"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label class="form-label">Change Name</label>
+          <input type="text" class="form-control" [(ngModel)]="username" />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Change Profile Picture</label>
+          <input
+            type="file"
+            class="form-control"
+            (change)="onProfileImageChange($event)"
+          />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-outline-light"
+          data-bs-dismiss="modal"
+        >
+          Cancel
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="saveProfileChanges()"
+        >
+          Save
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

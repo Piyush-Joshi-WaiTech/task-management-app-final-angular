@@ -1,5 +1,5 @@
 .home-container {
-  padding: 20px;
+  padding: 90px 25px 25px 25px; /* top, right, bottom, left */
 }
 
 .task-section {
@@ -139,7 +139,7 @@ form select {
   transition: background 0.3s, transform 0.2s;
 
   position: relative;
-  top: -55px;
+  top: -67px;
 }
 .navbar-brand img {
   border-radius: 50%;
@@ -163,6 +163,9 @@ form select {
   z-index: 1050;
   animation: fade-in-out 3s ease-in-out;
   font-weight: bold;
+}
+.span {
+  margin-top: 200px;
 }
 
 @keyframes fade-in-out {
@@ -207,7 +210,7 @@ form select {
 
 @media (max-width: 768px) {
   .home-container {
-    padding: 10px;
+    padding: 90px 15px 15px 15px;
   }
 }
 @media (max-width: 768px) {

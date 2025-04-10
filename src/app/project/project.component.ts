@@ -111,6 +111,8 @@ export class ProjectComponent implements OnInit {
 
     const projectTitle = this.projects[index].title;
 
+    const isDarkMode = document.body.classList.contains('dark-mode');
+
     Swal.fire({
       title: `Delete "${projectTitle}"?`,
       text: 'This action cannot be undone!',
@@ -119,6 +121,11 @@ export class ProjectComponent implements OnInit {
       confirmButtonText: 'Yes, delete it!',
       cancelButtonText: 'Cancel',
       reverseButtons: true,
+      background: isDarkMode ? '#2c2c2c' : '#fff',
+      color: isDarkMode ? '#f1f1f1' : '#000',
+      iconColor: isDarkMode ? '#ffc107' : undefined,
+      confirmButtonColor: isDarkMode ? '#d32f2f' : '#d33',
+      cancelButtonColor: isDarkMode ? '#555' : '#aaa',
     }).then((result) => {
       if (result.isConfirmed) {
         this.projects.splice(index, 1);
@@ -136,6 +143,9 @@ export class ProjectComponent implements OnInit {
           showConfirmButton: false,
           timer: 3000,
           timerProgressBar: true,
+          background: isDarkMode ? '#2c2c2c' : '#fff',
+          color: isDarkMode ? '#f1f1f1' : '#000',
+          iconColor: isDarkMode ? '#90caf9' : undefined,
         });
       }
     });
