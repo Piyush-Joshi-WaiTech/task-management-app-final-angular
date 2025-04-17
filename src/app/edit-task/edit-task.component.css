@@ -1,0 +1,85 @@
+/* Dark mode styling for the edit-task container */
+body.dark-mode .edit-task-container {
+  background-color: #121212; /* Dark background for the container */
+  color: #f1f1f1; /* Light text */
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+/* Dark mode styling for input fields */
+body.dark-mode .edit-task-container .form-control {
+  background-color: #1e1e1e; /* Dark background for inputs */
+  color: #f1f1f1; /* Light text */
+  border: 1px solid #444; /* Subtle border */
+  border-radius: 4px;
+}
+
+body.dark-mode .edit-task-container .form-control::placeholder {
+  color: #aaa; /* Subtle placeholder text */
+}
+
+/* Dark mode styling for labels */
+body.dark-mode .edit-task-container label {
+  color: #f1f1f1; /* Light text for labels */
+  font-weight: bold;
+}
+
+/* Dark mode styling for buttons */
+body.dark-mode .edit-task-container .btn-success {
+  background-color: #28a745; /* Green for success button */
+  color: #fff; /* Light text */
+  border: none;
+}
+
+body.dark-mode .edit-task-container .btn-secondary {
+  background-color: #444; /* Gray for secondary button */
+  color: #fff; /* Light text */
+  border: none;
+}
+
+body.dark-mode .edit-task-container .btn-success:hover,
+body.dark-mode .edit-task-container .btn-secondary:hover {
+  opacity: 0.9; /* Slight hover effect */
+}
+
+/* Dark mode styling for textareas */
+body.dark-mode .edit-task-container textarea.form-control {
+  background-color: #1e1e1e; /* Dark background for textareas */
+  color: #f1f1f1; /* Light text */
+  border: 1px solid #444; /* Subtle border */
+  border-radius: 4px;
+}
+
+/* Dark mode styling for dropdowns */
+body.dark-mode .edit-task-container select.form-control {
+  background-color: #1e1e1e; /* Dark background for dropdowns */
+  color: #f1f1f1; /* Light text */
+  border: 1px solid #444; /* Subtle border */
+  border-radius: 4px;
+}
+
+/* Dark mode styling for the form background */
+body.dark-mode .edit-task-container form {
+  background-color: #121212; /* Dark background for the form */
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid #444; /* Subtle border for contrast */
+}
+
+/* Dark mode styling for error messages */
+body.dark-mode .edit-task-container .text-danger {
+  color: #ef5350; /* Red for error messages */
+  font-weight: bold;
+}
+
+/* Dark mode styling for success messages */
+body.dark-mode .edit-task-container .text-success {
+  color: #66bb6a; /* Green for success messages */
+  font-weight: bold;
+}
+
+/* Ensure the entire page background is dark */
+body.dark-mode {
+  background-color: #121212; /* Dark background for the entire page */
+  color: #f1f1f1; /* Light text */
+}
