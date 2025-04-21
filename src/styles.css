@@ -182,3 +182,100 @@ body.dark-mode h2,
 body.dark-mode h3 {
   color: #f8f9fa;
 }
+/* Dark mode for modal */
+body.dark-mode .modal-content {
+  background-color: #2a2a2a !important;
+  color: #f1f1f1 !important;
+  border: 1px solid #444 !important;
+}
+
+body.dark-mode .modal-header,
+body.dark-mode .modal-footer {
+  background-color: #2a2a2a !important;
+  border-color: #444 !important;
+  color: #f1f1f1 !important;
+}
+
+body.dark-mode .modal-title {
+  color: #f8f9fa !important;
+}
+
+body.dark-mode .btn-close {
+  filter: invert(1);
+}
+
+body.dark-mode .form-label {
+  color: #ddd !important;
+}
+
+body.dark-mode select.form-select {
+  background-color: #2a2a2a !important;
+  color: #fff !important;
+  border: 1px solid #555 !important;
+}
+/* Dark Mode - Task Toolbar */
+body.dark-mode .d-flex {
+  background-color: #1e1e1e !important;
+  color: #f1f1f1 !important;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+}
+
+/* Dark Mode - Dropdown Menu */
+body.dark-mode .dropdown-menu {
+  background-color: #2c2c2c !important;
+  border: 1px solid #444 !important;
+  color: #f1f1f1 !important;
+}
+
+body.dark-mode .dropdown-item {
+  background-color: transparent !important;
+  color: #f1f1f1 !important;
+}
+
+/* Dark Mode - Dropdown Inputs and Selects */
+body.dark-mode .dropdown-menu .form-control,
+body.dark-mode .dropdown-menu .form-select {
+  background-color: #2a2a2a !important;
+  color: #fff !important;
+  border: 1px solid #555 !important;
+}
+
+body.dark-mode .dropdown-menu .form-control::placeholder {
+  color: #aaa !important;
+}
+
+/* Dark Mode - Dropdown Labels */
+body.dark-mode .dropdown-menu .form-label {
+  color: #f1f1f1 !important;
+}
+
+/* Fix the outline primary button in dark mode */
+body.dark-mode .btn-outline-primary {
+  color: #90caf9 !important;
+  border-color: #90caf9 !important;
+}
+
+body.dark-mode .btn-outline-primary:hover {
+  background-color: #90caf9 !important;
+  color: #000 !important;
+}
+
+/* Divider in dropdown */
+body.dark-mode .dropdown-divider {
+  border-top-color: #444 !important;
+}
+/* Dark Mode - Outer Toolbar Container */
+body.dark-mode .features-toolbar {
+  background-color: #1c1c1c !important;
+  color: #f1f1f1 !important;
+  border: 1px solid #333 !important;
+}
+
+/* Optional: adjust nested form controls and dropdowns (in case missed earlier) */
+body.dark-mode .features-toolbar .form-control,
+body.dark-mode .features-toolbar .form-select {
+  background-color: #2a2a2a !important;
+  color: #fff !important;
+  border: 1px solid #555 !important;
+}
