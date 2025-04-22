@@ -1,0 +1,12 @@
+:host {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+:host {
+  display: block;
+  padding: 20px;
+  text-align: center;
+}
+h1 {
+  font-size: 2.5em;
+  color: #ff0000;
+}
