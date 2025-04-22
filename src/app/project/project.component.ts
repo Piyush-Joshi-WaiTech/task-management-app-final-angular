@@ -53,6 +53,8 @@ export class ProjectComponent implements OnInit {
 
     this.loadUserProjects();
   }
+
+  // Extract and format username from email
   private extractUsername(email: string): string {
     const namePart = email.split('@')[0];
     const parts = namePart.split('.');
@@ -96,6 +98,7 @@ export class ProjectComponent implements OnInit {
       this.showNotification('✅ Project created successfully!', 'success');
     }
 
+    // Save updated project list
     localStorage.setItem(`projects_${loggedInUser}`, JSON.stringify(projects));
 
     this.loadUserProjects();
@@ -104,7 +107,7 @@ export class ProjectComponent implements OnInit {
   }
 
   deleteProject(index: number, event: Event) {
-    event.stopPropagation();
+    event.stopPropagation(); // Prevent parent events
 
     const loggedInUser = localStorage.getItem('email');
     if (!loggedInUser) return;
@@ -153,6 +156,7 @@ export class ProjectComponent implements OnInit {
 
   selectedProject: any = null;
 
+  // View a selected project's details in a modal
   viewProject(project: any, event: Event) {
     event.stopPropagation();
     this.selectedProject = project;
@@ -188,7 +192,7 @@ export class ProjectComponent implements OnInit {
       const storedTasks = localStorage.getItem(`tasks_${project.title}`);
       project.taskCount = storedTasks ? JSON.parse(storedTasks).length : 0;
     });
-    this.sortProjects();
+    this.sortProjects(); // Apply sorting
   }
 
   private saveProjectsToLocalStorage() {
@@ -280,6 +284,7 @@ export class ProjectComponent implements OnInit {
     }
   }
 
+  // filter projects based on search query that is ascending or descending
   filterProjects() {
     const allProjects = this.projectService.getProjects();
     const query = this.searchQuery.toLowerCase();

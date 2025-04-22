@@ -23,6 +23,7 @@ export class LoginComponent implements OnInit {
   constructor(private router: Router) {}
 
   ngOnInit() {
+    // Checking, if the user is already logged in (stored in localStorage)
     if (
       typeof window !== 'undefined' &&
       localStorage.getItem('loggedIn') === 'true'
@@ -32,11 +33,13 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+    // Checking that if email or password is empty
     if (this.email.trim() === '' || this.password.trim() === '') {
       this.showError = true;
       return;
     }
 
+    // Retrieving users from localStorage
     const storedUsers = JSON.parse(localStorage.getItem('users') || '[]');
 
     const foundUser = storedUsers.find(

@@ -13,7 +13,7 @@ import { ProjectService } from '../services/project.service';
   imports: [CommonModule, FormsModule, NavbarComponent],
 })
 export class HomeComponent {
-  username: string | null = '';
+  username: string | null = ''; // Stores the logged-in user's email
   isDarkMode = false;
 
   notification: string | null = null;
@@ -34,7 +34,7 @@ export class HomeComponent {
     endDate: '',
     teamMember: 0,
     dueDays: 0,
-    teamMembersArray: [] as string[], // 👈 new field
+    teamMembersArray: [] as string[], // Stores selected team members for the project
   };
 
   tasks: any[] = [];
@@ -46,7 +46,7 @@ export class HomeComponent {
   };
 
   isTaskCreationVisible: boolean = false;
-  showError: boolean = false;
+  showError: boolean = false; // for project form validation errors
   showTaskError: boolean = false;
   isTeamDropdownOpen = false; // Toggle for dropdown
 
@@ -86,12 +86,14 @@ export class HomeComponent {
     }
   }
 
+  // creating a new project
   createProject() {
     this.validateProjectForm();
     if (this.showError) {
       return;
     }
 
+    // Calculate the project due days from start and end date
     const start = new Date(this.project.startDate);
     const end = new Date(this.project.endDate);
     const timeDiff = end.getTime() - start.getTime();
@@ -101,7 +103,7 @@ export class HomeComponent {
     this.projectService.addProject({
       ...this.project,
       tasks: [],
-      teamMember: [...this.project.teamMembersArray], // 👈 Store names, not just the count
+      teamMember: [...this.project.teamMembersArray], //  Store names, not just the count
     });
 
     console.log('Project Created:', this.project);
@@ -142,6 +144,7 @@ export class HomeComponent {
     this.isTaskCreationVisible = !this.isTaskCreationVisible;
   }
 
+  // Handles team member checkbox changes
   onTeamMemberChange(member: string, event: Event) {
     const checked = (event.target as HTMLInputElement).checked;
     if (checked) {
@@ -151,9 +154,11 @@ export class HomeComponent {
         (m) => m !== member
       );
     }
+    // Update team member count
     this.project.teamMember = this.project.teamMembersArray.length;
   }
 
+  // Creating a new task and adding it to the tasks array
   createTask() {
     this.validateTaskForm();
 
@@ -161,7 +166,7 @@ export class HomeComponent {
       return;
     }
 
-    this.tasks.push({ ...this.task });
+    this.tasks.push({ ...this.task }); // Push the task object (with spread operator) into the tasks array
     console.log('Task Created:', this.task);
     alert('Task Created Successfully!');
 

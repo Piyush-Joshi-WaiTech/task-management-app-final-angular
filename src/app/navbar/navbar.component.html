@@ -47,7 +47,7 @@
         (mouseenter)="onHoverEnter()"
         (mouseleave)="onHoverLeave()"
       >
-        <!-- User Icon -->
+        <!-- User profile icon, toggles profile box on click -->
         <div class="user-icon" (click)="toggleProfileBox()">
           <img
             *ngIf="profileImage !== defaultImage; else defaultIcon"
@@ -65,7 +65,7 @@
           </ng-template>
         </div>
 
-        <!-- Profile Box -->
+        <!-- Profile box that displays user info (shown on hover) -->
         <div class="profile-box" *ngIf="isProfileBoxVisible">
           <div class="profile-content">
             <img [src]="profileImage" alt="User" class="profile-image" />
@@ -74,6 +74,7 @@
 
             <hr />
 
+            <!-- Button to open modal for changing profile picture -->
             <button
               class="profile-settings btn btn-link d-inline-flex align-items-center text-start"
               data-bs-toggle="modal"
@@ -91,7 +92,9 @@
     </div>
   </div>
 </nav>
-<!-- Profile Settings Modal -->
+
+<!-- Profile Settings Modal for changing profile info -->
+
 <div
   class="modal fade"
   id="profileSettingsModal"

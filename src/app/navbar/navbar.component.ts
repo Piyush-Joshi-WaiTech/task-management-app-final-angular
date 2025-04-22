@@ -37,6 +37,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     document.removeEventListener('click', this.onDocumentClick.bind(this));
   }
 
+  // Detect clicks outside the profile box to hide it
   onDocumentClick(event: any) {
     const target = event.target;
     const insideUserBox = target.closest('.user-box-container');
@@ -107,14 +108,14 @@ export class NavbarComponent implements OnInit, OnDestroy {
       localStorage.getItem('profileImage') ||
       'https://media.istockphoto.com/id/587805156/vector/profile-picture-vector-illustration.jpg?s=612x612&w=0&k=20&c=gkvLDCgsHH-8HeQe7JsjhlOY6vRBJk_sKW9lyaLgmLo=';
 
-    // ✅ Automatically close modal
+    // Automatically close modal
     const modalEl = document.getElementById('profileSettingsModal');
     if (modalEl) {
       const modalInstance = bootstrap.Modal.getInstance(modalEl);
       modalInstance?.hide();
     }
 
-    // ✅ Optional: Show a simple alert
+    // Message: Shows a simple alert
     alert('Profile updated successfully!');
   }
 }

@@ -1,6 +1,6 @@
 <div class="auth-wrapper">
   <div class="auth-box">
-    <!-- Left Side: Image -->
+    <!-- Left Side: Image that changes based on the form (Login or SignUp) -->
     <div class="auth-image">
       <img
         [src]="
@@ -121,7 +121,7 @@
 
         <button class="btn btn-success" (click)="signUp()">Sign Up</button>
 
-        <!-- Back to Login Link -->
+        <!-- Link to Switch to Login Form -->
         <p>
           Already have an account?
           <a href="javascript:void(0);" (click)="toggleSignUp()"

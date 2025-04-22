@@ -1,4 +1,5 @@
 <app-navbar></app-navbar>
+<!-- Notification Section: Displays a toast message if there's a notification -->
 <div *ngIf="notification" class="toast-notification">
   {{ notification }}
 </div>
@@ -85,6 +86,7 @@
               style="cursor: pointer; height: 38px; padding: 0.375rem 0.75rem"
               (click)="isTeamDropdownOpen = !isTeamDropdownOpen"
             >
+              <!-- Display the number of selected team members -->
               <span>
                 {{
                   project.teamMember > 0
@@ -92,6 +94,7 @@
                     : "Select team members"
                 }}
               </span>
+              <!-- (open/closed) changes based on dropdown state  -->
               <i
                 class="bi"
                 [ngClass]="
@@ -99,7 +102,7 @@
                 "
               ></i>
             </div>
-
+            <!-- Team Member Selection Dropdown Menu -->
             <div
               class="dropdown-menu show shadow ms-2"
               style="
@@ -207,7 +210,6 @@
 
   <!-- Task Management Section -->
   <div class="task-section">
-    <!-- Task List -->
     <div class="task-list">
       <ul>
         <li

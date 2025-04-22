@@ -272,7 +272,7 @@ body.dark-mode .features-toolbar {
   border: 1px solid #333 !important;
 }
 
-/* Optional: adjust nested form controls and dropdowns (in case missed earlier) */
+/* Optional: adjust nested form controls and dropdowns  */
 body.dark-mode .features-toolbar .form-control,
 body.dark-mode .features-toolbar .form-select {
   background-color: #2a2a2a !important;

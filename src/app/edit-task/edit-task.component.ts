@@ -65,11 +65,11 @@ export class EditTaskComponent implements OnInit {
       );
     }
 
-    alert('✅ Your task was edited successfully!'); // ✅ Success notification
-    this.router.navigate(['/tasks', this.projectId]); // Redirect after update
+    alert('✅ Your task was edited successfully!');
+    this.router.navigate(['/tasks', this.projectId]);
   }
 
   cancelEdit() {
-    this.router.navigate(['/tasks', this.projectId]); // ✅ Redirect to Task Page
+    this.router.navigate(['/tasks', this.projectId]);
   }
 }

@@ -118,7 +118,7 @@ export class TaskComponent implements OnInit {
     const taskToDelete = this.tasks[index];
     this.tasks.splice(index, 1);
 
-    // ✅ Also remove from allTasks
+    //  Also remove from allTasks
     const originalIndex = this.allTasks.findIndex(
       (t) =>
         t.title === taskToDelete.title &&
@@ -155,7 +155,7 @@ export class TaskComponent implements OnInit {
     this.editTask = {};
     this.editIndex = -1;
 
-    // ✅ Hide Bootstrap modal manually
+    //  Hide Bootstrap modal manually
     const modalElement = document.getElementById('editTaskModal');
     if (modalElement) {
       const modalInstance = bootstrap.Modal.getInstance(modalElement);

@@ -13,6 +13,7 @@ import { ProjectService } from '../services/project.service';
   styleUrls: ['./edit-project.component.css'],
 })
 export class EditProjectComponent implements OnInit {
+  // project structure with default empty values
   project: any = {
     title: '',
     description: '',
@@ -24,7 +25,7 @@ export class EditProjectComponent implements OnInit {
     teamMember: 0,
     tasks: [],
   };
-  projectId: number | null = null;
+  projectId: number | null = null; //holding the project ID
 
   constructor(
     private route: ActivatedRoute,
@@ -37,12 +38,14 @@ export class EditProjectComponent implements OnInit {
   }
 
   private loadProject() {
+    // get logged-in user's email for checking authorization
     const loggedInUser = localStorage.getItem('email');
     if (!loggedInUser) return;
 
     const projects = this.projectService.getProjects();
-    this.projectId = Number(this.route.snapshot.paramMap.get('id'));
+    this.projectId = Number(this.route.snapshot.paramMap.get('id')); // Get the project ID from route parameters (path variable)
 
+    // If project exists with the given ID, load its details, otherwise navigate to projects page
     if (this.projectId !== null && projects[this.projectId]) {
       this.project = { ...projects[this.projectId] };
     } else {
@@ -56,15 +59,16 @@ export class EditProjectComponent implements OnInit {
 
     let projects = this.projectService.getProjects();
 
-    // ✅ Recalculate dueDays before updating
+    // Recalculate dueDays before updating
     if (this.project.startDate && this.project.endDate) {
       const start = new Date(this.project.startDate);
       const end = new Date(this.project.endDate);
       const timeDiff = end.getTime() - start.getTime();
       const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
-      this.project.dueDays = daysDiff > 0 ? daysDiff : 0;
+      this.project.dueDays = daysDiff > 0 ? daysDiff : 0; // checking non negative days
     }
 
+    // Update the project details in the project array and save it to local storage
     if (this.projectId !== null) {
       projects[this.projectId] = { ...this.project };
       localStorage.setItem(

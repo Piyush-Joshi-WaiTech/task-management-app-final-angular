@@ -65,13 +65,12 @@
 
 /* Dark mode styling for the task container */
 body.dark-mode .container {
-  background-color: #1e1e1e !important; /* Dark background for the entire container */
-  color: #f1f1f1 !important; /* Light text */
+  background-color: #1e1e1e !important;
+  color: #f1f1f1 !important;
   border-radius: 8px;
   padding: 1rem;
 }
 
-/* Ensure buttons and inputs are styled properly in dark mode */
 body.dark-mode .form-control {
   background-color: #2a2a2a !important;
   color: #fff !important;
@@ -93,35 +92,31 @@ body.dark-mode .btn-secondary {
   color: #fff !important;
 }
 
-/* Ensure the task creation form card is styled in dark mode */
 body.dark-mode .card {
-  background-color: #2a2a2a; /* Dark background for cards */
-  color: #f1f1f1; /* Light text */
-  border: 1px solid #444; /* Subtle border for contrast */
+  background-color: #2a2a2a;
+  color: #f1f1f1;
+  border: 1px solid #444;
 }
 
 body.dark-mode .card.p-3 {
-  background-color: #2a2a2a !important; /* Dark background for the form */
-  color: #f1f1f1 !important; /* Light text */
-  border-radius: 8px; /* Rounded corners */
+  background-color: #2a2a2a !important;
+  color: #f1f1f1 !important;
+  border-radius: 8px;
   padding: 1rem;
 }
 
-/* Fix for the parent container of the task creation form */
 body.dark-mode .container {
-  background-color: #1e1e1e !important; /* Dark background for the entire container */
-  color: #f1f1f1 !important; /* Light text */
+  background-color: #1e1e1e !important;
+  color: #f1f1f1 !important;
 }
 
-/* Ensure the row containing the task creation form is styled */
 body.dark-mode .row {
-  background-color: #1e1e1e !important; /* Dark background for rows */
-  color: #f1f1f1 !important; /* Light text */
+  background-color: #1e1e1e !important;
+  color: #f1f1f1 !important;
 }
 
-/* Fix for any additional white space around the task creation form */
 body.dark-mode .card.mb-4 {
-  background-color: #2a2a2a !important; /* Dark background for cards */
-  color: #f1f1f1 !important; /* Light text */
-  border: 1px solid #444 !important; /* Subtle border for contrast */
+  background-color: #2a2a2a !important;
+  color: #f1f1f1 !important;
+  border: 1px solid #444 !important;
 }
