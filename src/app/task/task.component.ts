@@ -22,13 +22,23 @@ export class TaskComponent implements OnInit {
   assignedToFilter: string = '';
   sortKey: string = '';
   sortDirection: 'asc' | 'desc' = 'asc';
+  convertTimeToHours(time: string | number): number {
+    if (!time) return 0;
+
+    if (typeof time === 'number') {
+      return time; // already in hours
+    }
+
+    const [hours, minutes] = time.split(':').map((part) => parseInt(part, 10));
+    return hours + minutes / 60;
+  }
 
   task = {
     title: '',
     assignedTo: '',
     status: '',
-    estimate: 0,
-    timeSpent: 0,
+    estimate: '',
+    timeSpent: '',
   };
 
   showTaskForm: boolean = false;
@@ -64,26 +74,31 @@ export class TaskComponent implements OnInit {
       return;
     }
 
-    const newTask = { ...this.task };
+    const newTask = {
+      ...this.task,
+      estimate: this.convertTimeToHours(this.task.estimate),
+      timeSpent: this.convertTimeToHours(this.task.timeSpent),
+    };
+
     this.tasks.push(newTask);
-    this.allTasks.push(newTask); // ✅ Keep allTasks in sync
+    this.allTasks.push(newTask);
 
     localStorage.setItem(
       `tasks_${this.projectTitle}`,
       JSON.stringify(this.tasks)
     );
-    // <-- Add this after task creation/deletion
 
     this.showNotification('✅ Task created successfully!', 'success');
 
-    // Reset form
+    // Reset the form
     this.task = {
       title: '',
       assignedTo: '',
       status: '',
-      estimate: 0,
-      timeSpent: 0,
+      estimate: '',
+      timeSpent: '',
     };
+
     this.showTaskForm = false;
   }
 
@@ -152,12 +167,14 @@ export class TaskComponent implements OnInit {
 
   updateTask() {
     if (this.editIndex > -1) {
-      const updatedTask = { ...this.editTask };
+      const updatedTask = {
+        ...this.editTask,
+        estimate: this.convertTimeToHours(this.editTask.estimate),
+        timeSpent: this.convertTimeToHours(this.editTask.timeSpent),
+      };
 
-      // ✅ Update task in displayed list
       this.tasks[this.editIndex] = updatedTask;
 
-      // ✅ Also update task in allTasks by matching index (fallback to editIndex if no exact match)
       const allIndex = this.allTasks.findIndex(
         (task, i) => i === this.editIndex
       );
@@ -165,7 +182,6 @@ export class TaskComponent implements OnInit {
         this.allTasks[allIndex] = updatedTask;
       }
 
-      // ✅ Save to localStorage
       localStorage.setItem(
         `tasks_${this.projectTitle}`,
         JSON.stringify(this.allTasks)
@@ -173,10 +189,8 @@ export class TaskComponent implements OnInit {
 
       this.showNotification('✅ Task updated successfully!', 'success');
 
-      // ✅ Re-apply filters (not filterTasksByStatus to avoid recursion bug)
       this.applyFilters();
 
-      // ✅ Close modal manually
       const modalElement = document.getElementById('editTaskModal');
       if (modalElement) {
         const modalInstance = bootstrap.Modal.getInstance(modalElement);
@@ -185,7 +199,6 @@ export class TaskComponent implements OnInit {
         }
       }
 
-      // ✅ Reset modal state
       this.closeEditModal();
     }
   }
@@ -245,14 +258,13 @@ export class TaskComponent implements OnInit {
   }
 
   formatTime(hours: number): string {
-    if (hours == null || isNaN(hours)) return '00:00:00';
+    if (hours == null || isNaN(hours)) return '00:00';
 
-    const totalSeconds = Math.floor(hours * 3600);
-    const hrs = Math.floor(totalSeconds / 3600);
-    const mins = Math.floor((totalSeconds % 3600) / 60);
-    const secs = totalSeconds % 60;
+    const totalMinutes = Math.round(hours * 60);
+    const hrs = Math.floor(totalMinutes / 60);
+    const mins = totalMinutes % 60;
 
-    return `${this.padZero(hrs)}:${this.padZero(mins)}:${this.padZero(secs)}`;
+    return `${this.padZero(hrs)}:${this.padZero(mins)}`;
   }
 
   padZero(num: number): string {

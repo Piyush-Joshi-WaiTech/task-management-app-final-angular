@@ -141,22 +141,22 @@
     </div>
 
     <div class="mb-3">
-      <label class="form-label">Estimate (HH:MM:SS)</label>
+      <label class="form-label">Estimate (HH:MM)</label>
       <input
-        type="text"
+        type="time"
         class="form-control"
         [(ngModel)]="task.estimate"
-        placeholder="e.g. 01:30:00"
+        step="60"
       />
     </div>
 
     <div class="mb-3">
-      <label class="form-label">Time Spent (HH:MM:SS)</label>
+      <label class="form-label">Time Spent (HH:MM)</label>
       <input
-        type="text"
+        type="time"
         class="form-control"
         [(ngModel)]="task.timeSpent"
-        placeholder="e.g. 02:15:30"
+        step="60"
       />
     </div>
 
@@ -211,7 +211,7 @@
                       }"
                     >
                       <i
-                        class="bi"
+                        class="bi me-2"
                         [ngClass]="{
                           'bi-exclamation-triangle-fill me-1':
                             task.status === 'High',
@@ -301,20 +301,20 @@
           <div class="mb-3">
             <label class="form-label">Estimate (hrs)</label>
             <input
-              type="text"
+              type="time"
               class="form-control"
               [(ngModel)]="editTask.estimate"
-              placeholder="e.g. 01:30:00"
+              step="60"
             />
           </div>
 
           <div class="mb-3">
             <label class="form-label">Time Spent (hrs)</label>
             <input
-              type="text"
+              type="time"
               class="form-control"
               [(ngModel)]="editTask.timeSpent"
-              placeholder="e.g. 02:15:30"
+              step="60"
             />
           </div>
         </div>
